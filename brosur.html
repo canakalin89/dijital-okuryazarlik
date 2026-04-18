@@ -290,7 +290,10 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
     <p style="font-size:8pt"><strong>Okul Rehberlik Servisi:</strong> <br/>Ana bina, giriş katı · Ders saatleri içinde</p>
 
     <div class="footer-brand">
-      <div class="name">Aziz Sancar Anadolu Lisesi</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:3mm;margin-bottom:2mm">
+        <img src="logo.png" alt="Logo" style="width:10mm;height:10mm;object-fit:contain"/>
+        <div class="name">Aziz Sancar Anadolu Lisesi</div>
+      </div>
       <div class="url">azizsancaranadolu.meb.k12.tr</div>
       <div class="small">Bilgilendirme amaçlıdır · 2025–2026 · Broşürü saklayın</div>
     </div>
@@ -301,8 +304,8 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
     <span class="plabel">İç Kapak</span>
     <h2>👨‍👩‍👧 Velilere Hızlı Başvuru</h2>
     <p class="intro">
-      Ebeveyn kontrolü <strong>casusluk değil — süzgeçtir</strong>. Çocuğa açıkça söyleyin ne yaptığınızı.
-      <em>Aşağıdaki ayarlar 10 dakikada kurulabilir.</em>
+      Ebeveyn denetimi <strong>gözetleme değil — korumadır</strong>. Ne yaptığınızı çocuğunuza açıkça anlatın.
+      <em>Aşağıdaki ayarları 10 dakikada yapabilirsiniz.</em>
     </p>
 
     <div class="ptip">
@@ -334,19 +337,22 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
   <div class="panel cover">
     <span class="plabel" style="color:rgba(255,255,255,.35)">Ön Kapak</span>
     <div class="school-tag">
-      <svg width="16" height="16" viewBox="0 0 64 64" fill="none"><path d="M32 4 56 14v18c0 14-10 24-24 28C18 56 8 46 8 32V14Z" fill="#e7c96a"/></svg>
       AZİZ SANCAR ANADOLU LİSESİ
     </div>
 
-    <div>
-      <h1>Dijital<br/>Okuryazarlık</h1>
-      <div class="sub">Ekrandaki hayat, <em>gerçek hayattır.</em></div>
-      <span class="pill">Öğrenciler · Veliler · Öğretmenler</span>
+    <div style="display:flex;align-items:center;gap:6mm;margin-top:4mm">
+      <img src="logo.png" alt="Aziz Sancar Anadolu Lisesi Logo"
+           style="width:28mm;height:28mm;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))"/>
+      <div>
+        <h1 style="font-size:22pt">Dijital<br/>Okuryazarlık</h1>
+        <div class="sub" style="font-size:9pt">Ekrandaki hayat, <em>gerçek hayattır.</em></div>
+      </div>
     </div>
 
-    <div class="art">
-      <!-- Cover illustration: shield + phone + heart -->
-      <svg width="72mm" height="85mm" viewBox="0 0 200 240">
+    <span class="pill" style="margin-top:5mm">Öğrenciler · Veliler · Öğretmenler</span>
+
+    <div class="art" style="text-align:center;margin:4mm 0 0">
+      <svg width="60mm" height="52mm" viewBox="0 0 180 155">
         <defs>
           <linearGradient id="cs" x1="0" x2="1" y1="0" y2="1">
             <stop offset="0" stop-color="#e7c96a"/><stop offset="1" stop-color="#d14d73"/>
@@ -355,33 +361,25 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
             <stop offset="0" stop-color="#2a3a6e"/><stop offset="1" stop-color="#0e1a3e"/>
           </linearGradient>
         </defs>
-        <!-- shield outline -->
-        <path d="M100 20 L160 42 V120 C160 170 135 205 100 220 C65 205 40 170 40 120 V42 Z"
-              fill="none" stroke="url(#cs)" stroke-width="2" stroke-dasharray="4 5" opacity=".7"/>
-        <!-- phone -->
-        <g transform="translate(70 50)">
-          <rect x="0" y="0" width="60" height="110" rx="10" fill="url(#ph)" stroke="rgba(255,255,255,.25)"/>
-          <rect x="4" y="6" width="52" height="90" rx="5" fill="#0a142e"/>
-          <rect x="22" y="10" width="16" height="3" rx="1.5" fill="#2a3a6e"/>
-          <rect x="10" y="26" width="30" height="7" rx="3.5" fill="#2f3d6c"/>
-          <rect x="24" y="38" width="28" height="7" rx="3.5" fill="#3661c9" opacity=".7"/>
-          <!-- lock on screen -->
-          <g transform="translate(16 56)">
-            <rect x="0" y="8" width="28" height="22" rx="3" fill="url(#cs)"/>
-            <path d="M5 8v-3a9 9 0 0 1 18 0v3" fill="none" stroke="#fff" stroke-width="2.2"/>
-            <circle cx="14" cy="19" r="2" fill="#0e1a3e"/>
+        <path d="M90 10 L145 28 V80 C145 118 122 140 90 152 C58 140 35 118 35 80 V28 Z"
+              fill="none" stroke="url(#cs)" stroke-width="2" stroke-dasharray="4 5" opacity=".6"/>
+        <g transform="translate(62 30)">
+          <rect x="0" y="0" width="52" height="95" rx="9" fill="url(#ph)" stroke="rgba(255,255,255,.2)"/>
+          <rect x="3" y="5" width="46" height="78" rx="5" fill="#0a142e"/>
+          <rect x="18" y="8" width="14" height="3" rx="1.5" fill="#2a3a6e"/>
+          <g transform="translate(12 45)">
+            <rect x="0" y="7" width="26" height="20" rx="3" fill="url(#cs)"/>
+            <path d="M4 7v-2a9 9 0 0 1 18 0v2" fill="none" stroke="#fff" stroke-width="2"/>
+            <circle cx="13" cy="17" r="2" fill="#0e1a3e"/>
           </g>
-          <rect x="10" y="86" width="40" height="6" rx="3" fill="#2f3d6c"/>
         </g>
-        <!-- heart badge -->
-        <g transform="translate(140 48)">
-          <circle cx="0" cy="0" r="18" fill="#fff" opacity=".12"/>
-          <path d="M0 8 C -12 -2 -12 -16 -4 -16 C -1 -16 0 -13 0 -11 C 0 -13 1 -16 4 -16 C 12 -16 12 -2 0 8 Z" fill="#d14d73"/>
-        </g>
-        <!-- check badge -->
-        <g transform="translate(54 170)">
+        <g transform="translate(125 38)">
           <circle cx="0" cy="0" r="16" fill="#fff" opacity=".12"/>
-          <path d="M-6 0 L -1 5 L 7 -5" fill="none" stroke="#e7c96a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M0 7 C -11 -2 -11 -14 -4 -14 C -1 -14 0 -11 0 -10 C 0 -11 1 -14 4 -14 C 11 -14 11 -2 0 7 Z" fill="#d14d73"/>
+        </g>
+        <g transform="translate(48 145)">
+          <circle cx="0" cy="0" r="13" fill="#fff" opacity=".12"/>
+          <path d="M-5 0 L -1 4 L 6 -4" fill="none" stroke="#e7c96a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         </g>
       </svg>
     </div>
@@ -402,7 +400,7 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
     <h2>Dijital Şiddet Nedir?</h2>
     <p>
       İnternet, sosyal medya, mesajlaşma ve oyunlarda bir kişiye zarar vermek, korkutmak, aşağılamak ya da kontrol etmek amacıyla yapılan her davranış <strong>dijital şiddet</strong>tir.
-      "Şaka", "takma isim", "silerim geçer" — hiçbiri bunu <em>daha az ciddi</em> yapmaz.
+      "Şaka", "takma isim", "silerim geçer" — bunlar şiddeti şiddet olmaktan <em>çıkarmaz</em>.
     </p>
 
     <h3 style="color:var(--pink);margin-top:3mm">En Sık 6 Tür</h3>
@@ -414,7 +412,7 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
       </div></div>
       <div class="vrow"><div class="vi b">📍</div><div class="vt">
         <div class="vh">Doxxing</div>
-        <div class="vd">Adres, telefon, ailenin bilgileri izinsiz paylaşılır. TCK m.134 kapsamında suçtur.</div>
+        <div class="vd">Adres, telefon, aile bilgileri izinsiz yayılır. TCK m.134 uyarınca suçtur.</div>
       </div></div>
       <div class="vrow"><div class="vi p">📸</div><div class="vt">
         <div class="vh">Rızasız Görüntü</div>
@@ -426,7 +424,7 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
       </div></div>
       <div class="vrow"><div class="vi t">🎭</div><div class="vt">
         <div class="vh">Grooming</div>
-        <div class="vd">Yetişkinin güven inşa edip cinsel içerik istemesi. "Ailene söyleme" kırmızı bayraktır.</div>
+        <div class="vd">Bir yetişkinin güven kazanıp ardından cinsel içerik istemesidir. "Ailene söyleme" sözü tehlike işaretidir.</div>
       </div></div>
       <div class="vrow"><div class="vi b">❤️‍🩹</div><div class="vt">
         <div class="vh">Flört Şiddeti</div>
@@ -435,7 +433,7 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
     </div>
 
     <div class="note">
-      <strong>Unutma:</strong> "Anonim" diye bir şey yoktur. Ekran görüntüsü ve IP kaydı faili mutlaka ortaya çıkarır.
+      <strong>Unutma:</strong> "Anonim" diye bir şey yoktur. Ekran görüntüsü ve IP kayıtları izi silmez; fail eninde sonunda bulunur.
     </div>
   </div>
 
@@ -451,11 +449,11 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
       </div></div>
       <div class="step-row"><div class="sn">2</div><div class="sc">
         <div class="sh">Engelle ve Bildir</div>
-        <div class="sd">Platform içi şikâyet + engelle. Birden fazla rapor etkili olur.</div>
+        <div class="sd">Platformun şikâyet aracını kullan ve kişiyi engelle. Birden fazla bildiri etkiyi artırır.</div>
       </div></div>
       <div class="step-row"><div class="sn">3</div><div class="sc">
         <div class="sh">Güvenilir Yetişkine Anlat</div>
-        <div class="sd">Aile, rehber öğretmen, okul idaresi. Yalnız taşıma — susmak faili güçlendirir.</div>
+        <div class="sd">Aile, rehber öğretmen, okul idaresi. Bunu içinde tutma — susmak faili güçlendirir.</div>
       </div></div>
       <div class="step-row"><div class="sn">4</div><div class="sc">
         <div class="sh">Resmi Bildirim</div>
@@ -463,7 +461,7 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
       </div></div>
       <div class="step-row"><div class="sn">5</div><div class="sc">
         <div class="sh">Kendine İyi Bak</div>
-        <div class="sd">Ekrandan ara ver. Uyu, yürü, güvendiğinle konuş. Gerekirse okul psikoloğu.</div>
+        <div class="sd">Ekrandan uzaklaş. Uyu, yürü, güvendiğin biriyle konuş. Gerekirse okul psikoloğuna başvur.</div>
       </div></div>
     </div>
 
@@ -478,7 +476,7 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
     </ul>
 
     <div class="note ok">
-      <strong>Hatırla:</strong> Senin suçun değil. Yardım istemek zayıflık değil <strong>zekâdır</strong>.
+      <strong>Hatırla:</strong> Bu senin suçun değil. Yardım istemek zayıflık değil — <strong>cesaret</strong>tir.
     </div>
   </div>
 
@@ -489,15 +487,15 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
 
     <div class="ptip">
       <h4>1 · Konuşun, Sorgulamadan</h4>
-      <p>"Neden hâlâ telefondasın?" yerine "Bugün internette hoşuna giden ne oldu?" — açık uçlu sorular kapıyı açık tutar.</p>
+      <p>"Neden hâlâ telefondasın?" yerine "Bugün internette hoşuna giden ne oldu?" — açık uçlu sorular iletişimi canlı tutar.</p>
     </div>
     <div class="ptip">
       <h4>2 · Güvenli Kişi Olun</h4>
-      <p>Çocuğunuz siber zorbalık yaşadığında ilk koşacağı kişi olun. Yargılamadan dinleyin, sonra çözün.</p>
+      <p>Çocuğunuz bir şey yaşadığında aklına ilk gelen kişi siz olun. Önce yargılamadan dinleyin; çözümü birlikte bulun.</p>
     </div>
     <div class="ptip">
       <h4>3 · Dijital Aile Sözleşmesi</h4>
-      <p>Ekran süresi, yatak odasında telefon yasağı, paylaşım kuralları — <strong>birlikte</strong> yazın, tek taraflı değil.</p>
+      <p>Ekran süresi, yatak odasında telefon yasağı, paylaşım kuralları — <strong>birlikte</strong> belirleyin, dayatmadan.</p>
     </div>
     <div class="ptip">
       <h4>4 · Kendiniz Örnek Olun</h4>
@@ -509,7 +507,7 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
       <li>Her hesapta farklı şifre + <strong>2FA</strong> aktif</li>
       <li>Profil gizliliği, konum servisi kapalı</li>
       <li>Tanımadığın takip isteğini kabul etme</li>
-      <li><strong>T.H.I.N.K</strong>: True · Helpful · Inspiring · Necessary · Kind — değilse gönderme</li>
+      <li>Paylaşmadan önce sor: <strong>Doğru mu? Yararlı mı? Gerekli mi? Saygılı mı?</strong> Değilse gönderme</li>
       <li>Yaymadan önce kaynak kontrolü yap</li>
     </ul>
 
@@ -518,10 +516,10 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
     </div>
 
     <p style="text-align:center;margin-top:3mm;font-size:9.5pt;color:var(--navy);font-weight:700">
-      "Klavyen sessizse sen de sessizsin."
+      "Sessiz kalmak da bir tercihtir — ama yanlış olan."
     </p>
     <p style="text-align:center;font-size:8pt;color:var(--mut)">
-      Birine destek olmak çoğu zaman tek bir cümleye bakar:<br/><em style="color:var(--pink)">"Yanındayım."</em>
+      Birine destek olmak çoğu zaman tek bir cümleyle başlar:<br/><em style="color:var(--pink)">"Yanındayım."</em>
     </p>
   </div>
 
