@@ -208,18 +208,33 @@ h1.title em{font-style:normal;background:var(--grad-warm);-webkit-background-cli
 .sidenav .sn-foot a{padding:0;display:inline;color:#9cc0ff;border:0}
 
 /* Shift the whole page right on desktop */
+/* hamburger – mobilde görünür */
+.mob-burger{
+  display:none;align-items:center;justify-content:center;
+  width:38px;height:38px;border-radius:10px;flex:none;
+  background:rgba(255,255,255,.07);border:1px solid var(--line);
+  color:#fff;cursor:pointer;transition:background .15s;
+}
+.mob-burger:hover{background:rgba(255,255,255,.14)}
 @media (min-width:901px){
   body{padding-left:260px}
 }
 @media (max-width:900px){
+  .mob-burger{display:flex}
   .sidenav{
     position:sticky;top:0;bottom:auto;width:auto;
     border-right:0;border-bottom:1px solid var(--line);
-    padding:10px 12px;flex-direction:column;box-shadow:none;
+    padding:10px 14px;flex-direction:column;gap:0;
+    box-shadow:0 4px 24px rgba(0,0,0,.4);
+    z-index:40;
   }
-  .sidenav .sn-head{padding:0 4px 8px}
-  .sidenav ul{flex-direction:row;flex-wrap:wrap;gap:6px}
-  .sidenav a{padding:7px 10px;font-size:12.5px;white-space:nowrap}
+  .sidenav .sn-head{
+    padding:0;border-bottom:0;
+    justify-content:space-between;
+  }
+  .sidenav ul{display:none;flex-direction:column;gap:4px;margin-top:10px}
+  .sidenav.open ul{display:flex}
+  .sidenav a{padding:10px 12px;font-size:14px}
   .sidenav .sn-foot{display:none}
 }
 
@@ -737,6 +752,9 @@ ol.refs li:target{border-color:rgba(255,209,102,.55);background:linear-gradient(
       <div class="sn-title">İçindekiler</div>
       <div class="sn-sub">11 Bölüm · Kılavuz</div>
     </div>
+    <button class="mob-burger" aria-label="Menüyü aç/kapat" onclick="this.closest('.sidenav').classList.toggle('open')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
   </div>
   <ul>
     <li><a href="#nedir"><span class="em">📖</span><span>Dijital Okuryazarlık</span></a></li>
@@ -1634,5 +1652,14 @@ ol.refs li:target{border-color:rgba(255,209,102,.55);background:linear-gradient(
   </div>
 </footer>
 
+<script>
+// Mobilde link tıklanınca menüyü kapat
+document.querySelectorAll('.sidenav a').forEach(function(a){
+  a.addEventListener('click',function(){
+    if(window.innerWidth<=900)
+      a.closest('.sidenav').classList.remove('open');
+  });
+});
+</script>
 </body>
 </html>
