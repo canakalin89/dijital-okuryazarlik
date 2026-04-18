@@ -75,7 +75,7 @@ a:hover{text-decoration:underline}
 
 /* ---------- TOP BAR / SCHOOL BRAND ---------- */
 .topbar{
-  position:sticky;top:0;z-index:20;
+  position:sticky;top:0;z-index:55;
   backdrop-filter: blur(12px) saturate(140%);
   -webkit-backdrop-filter: blur(12px) saturate(140%);
   background: rgba(7,11,28,.72);
@@ -208,34 +208,34 @@ h1.title em{font-style:normal;background:var(--grad-warm);-webkit-background-cli
 .sidenav .sn-foot a{padding:0;display:inline;color:#9cc0ff;border:0}
 
 /* Shift the whole page right on desktop */
-/* hamburger – mobilde görünür */
-.mob-burger{
+/* topbar hamburger – sadece mobilde */
+.topbar-burger{
   display:none;align-items:center;justify-content:center;
   width:38px;height:38px;border-radius:10px;flex:none;
   background:rgba(255,255,255,.07);border:1px solid var(--line);
   color:#fff;cursor:pointer;transition:background .15s;
+  margin-right:4px;
 }
-.mob-burger:hover{background:rgba(255,255,255,.14)}
+.topbar-burger:hover{background:rgba(255,255,255,.14)}
+/* overlay */
+.nav-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:49;
+}
+.nav-overlay.show{display:block}
 @media (min-width:901px){
   body{padding-left:260px}
 }
 @media (max-width:900px){
-  .mob-burger{display:flex}
+  .topbar-burger{display:flex}
+  body{padding-left:0}
+  .mob-burger{display:none!important}
   .sidenav{
-    position:sticky;top:0;bottom:auto;width:auto;
-    border-right:0;border-bottom:1px solid var(--line);
-    padding:10px 14px;flex-direction:column;gap:0;
-    box-shadow:0 4px 24px rgba(0,0,0,.4);
-    z-index:40;
+    position:fixed;top:0;left:-290px;bottom:0;width:280px;
+    transition:left .25s cubic-bezier(.25,.46,.45,.94);
+    z-index:50;border-right:1px solid var(--line);
   }
-  .sidenav .sn-head{
-    padding:0;border-bottom:0;
-    justify-content:space-between;
-  }
-  .sidenav ul{display:none;flex-direction:column;gap:4px;margin-top:10px}
-  .sidenav.open ul{display:flex}
-  .sidenav a{padding:10px 12px;font-size:14px}
-  .sidenav .sn-foot{display:none}
+  .sidenav.open{left:0;box-shadow:4px 0 40px rgba(0,0,0,.5)}
+  .sidenav .sn-foot{display:flex;flex-direction:column}
 }
 
 /* ---------- SECTION ---------- */
@@ -583,6 +583,9 @@ ol.refs li:target{border-color:rgba(255,209,102,.55);background:linear-gradient(
 <!-- =========== TOP BAR / SCHOOL BRAND =========== -->
 <header class="topbar">
   <div class="topbar-inner">
+    <button class="topbar-burger" id="navToggle" aria-label="Menüyü aç/kapat">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
     <div class="brand">
       <img src="logo.png" class="brand-logo" alt="Aziz Sancar Anadolu Lisesi" style="object-fit:contain"/>
       <div class="brand-text">
@@ -603,6 +606,7 @@ ol.refs li:target{border-color:rgba(255,209,102,.55);background:linear-gradient(
     </div>
   </div>
 </header>
+<div class="nav-overlay" id="navOverlay"></div>
 
 <!-- =========== HERO =========== -->
 <section class="hero">
@@ -752,9 +756,6 @@ ol.refs li:target{border-color:rgba(255,209,102,.55);background:linear-gradient(
       <div class="sn-title">İçindekiler</div>
       <div class="sn-sub">11 Bölüm · Kılavuz</div>
     </div>
-    <button class="mob-burger" aria-label="Menüyü aç/kapat" onclick="this.closest('.sidenav').classList.toggle('open')">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
   </div>
   <ul>
     <li><a href="#nedir"><span class="em">📖</span><span>Dijital Okuryazarlık</span></a></li>
@@ -1653,13 +1654,18 @@ ol.refs li:target{border-color:rgba(255,209,102,.55);background:linear-gradient(
 </footer>
 
 <script>
-// Mobilde link tıklanınca menüyü kapat
-document.querySelectorAll('.sidenav a').forEach(function(a){
-  a.addEventListener('click',function(){
-    if(window.innerWidth<=900)
-      a.closest('.sidenav').classList.remove('open');
+(function(){
+  var toggle = document.getElementById('navToggle');
+  var nav    = document.querySelector('.sidenav');
+  var overlay= document.getElementById('navOverlay');
+  function open(){nav.classList.add('open');overlay.classList.add('show')}
+  function close(){nav.classList.remove('open');overlay.classList.remove('show')}
+  if(toggle) toggle.addEventListener('click',function(){nav.classList.contains('open')?close():open()});
+  if(overlay) overlay.addEventListener('click',close);
+  document.querySelectorAll('.sidenav a').forEach(function(a){
+    a.addEventListener('click',function(){if(window.innerWidth<=900)close()});
   });
-});
+})();
 </script>
 </body>
 </html>
