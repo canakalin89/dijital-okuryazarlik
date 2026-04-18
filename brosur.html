@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dijital Okuryazarlık Broşürü · Aziz Sancar Anadolu Lisesi</title>
+<style>
+/* =========================================================
+   TRI-FOLD A4 LANDSCAPE BROCHURE — print-ready, double-sided
+   Page 1 (outside): [ARKA KAPAK | İÇ KAPAK | ÖN KAPAK]
+   Page 2 (inside):  [KOLON 1    | KOLON 2   | KOLON 3   ]
+   ========================================================= */
+
+:root{
+  --navy:#0e1a3e;
+  --navy-2:#1b2a5c;
+  --gold:#c69a2b;
+  --gold-soft:#e7c96a;
+  --pink:#d14d73;
+  --teal:#0f8f84;
+  --brand:#3661c9;
+  --ink:#1a1a1a;
+  --mut:#555;
+  --line:#d0d5e2;
+  --bg-tint:#f4f6fb;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#e4e7ef}
+body{
+  font-family:"Segoe UI","Helvetica Neue",Arial,"Noto Sans",sans-serif;
+  color:var(--ink);
+  line-height:1.4;
+  -webkit-font-smoothing:antialiased;
+  padding:20px;
+  display:flex;flex-direction:column;align-items:center;gap:18px;
+}
+
+/* ----- A4 LANDSCAPE SHEETS ----- */
+.sheet{
+  width:297mm;height:210mm;
+  background:#fff;
+  display:grid;
+  grid-template-columns:99mm 99mm 99mm;
+  box-shadow:0 6px 30px rgba(14,26,62,.20);
+  overflow:hidden;
+  position:relative;
+}
+.panel{
+  position:relative;
+  padding:9mm 8mm;
+  border-right:1px dashed rgba(0,0,0,.18);
+  overflow:hidden;
+}
+.panel:last-child{border-right:0}
+
+/* Fold marks at edges */
+.sheet::before, .sheet::after{
+  content:"";position:absolute;left:0;right:0;height:0;
+  border-top:1px solid rgba(0,0,0,.25);
+  pointer-events:none;
+}
+.sheet::before{top:0}
+.sheet::after{bottom:0;display:none}
+
+/* ---------- TYPOGRAPHY ---------- */
+h1,h2,h3,h4{font-weight:800;line-height:1.15;color:var(--navy)}
+h1{font-size:26pt;letter-spacing:-.02em}
+h2{font-size:13pt;text-transform:uppercase;letter-spacing:.5pt;color:var(--brand)}
+h3{font-size:10.5pt;margin-bottom:2mm}
+h4{font-size:9.5pt;color:var(--navy)}
+p{font-size:9pt;color:#222;margin-bottom:2.5mm}
+small{font-size:7.5pt;color:var(--mut)}
+strong{color:#000}
+em{color:var(--pink);font-style:normal;font-weight:700}
+.tt{font-family:"Courier New",monospace;font-size:8.5pt}
+
+ul{list-style:none;padding:0;margin:0 0 3mm}
+ol{padding-left:14px;margin:0 0 3mm;font-size:9pt}
+ul li, ol li{margin:1.2mm 0;font-size:9pt;line-height:1.35}
+ul.bul li{padding-left:10px;position:relative}
+ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-size:10pt;line-height:1.1;top:0}
+
+/* ---------- COVER (front cover, right panel of side 1) ---------- */
+.cover{
+  background:
+    radial-gradient(closest-side at 80% 20%, rgba(198,154,43,.35), transparent 65%),
+    radial-gradient(closest-side at 20% 80%, rgba(54,97,201,.28), transparent 60%),
+    linear-gradient(180deg, var(--navy) 0%, #0a142e 100%);
+  color:#fff;
+  padding:12mm 9mm;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.cover .school-tag{
+  font-size:8pt;letter-spacing:3pt;color:var(--gold-soft);text-transform:uppercase;font-weight:700;
+  display:flex;align-items:center;gap:8px;
+}
+.cover h1{
+  color:#fff;font-size:26pt;margin-top:10mm;
+}
+.cover h1 em{color:var(--gold-soft)}
+.cover .sub{color:#c8cef0;font-size:10pt;margin-top:4mm;line-height:1.4}
+.cover .pill{
+  display:inline-block;padding:3pt 9pt;border-radius:999pt;
+  font-size:7.5pt;letter-spacing:.6pt;font-weight:700;
+  background:rgba(255,255,255,.1);color:#fff;border:1pt solid rgba(255,255,255,.25);
+  margin-top:8mm;
+}
+.cover .art{align-self:center;margin:3mm 0}
+.cover .foot{
+  font-size:7.5pt;color:#9aa3c7;text-align:center;border-top:1pt solid rgba(255,255,255,.18);padding-top:4mm;letter-spacing:.8pt;
+}
+
+/* ---------- BACK COVER (left panel of side 1) ---------- */
+.back{
+  background:linear-gradient(180deg,#f4f6fb 0%, #e9edf7 100%);
+  padding:9mm 8mm;
+  display:flex;flex-direction:column;
+}
+.back h2{color:var(--pink);margin-bottom:3mm}
+.phone-row{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:2.5mm;margin-bottom:3mm;
+}
+.phone-box{
+  background:#fff;border:1pt solid var(--line);border-radius:2mm;
+  padding:2mm 2.5mm;
+}
+.phone-box .n{font-weight:900;color:var(--navy);font-size:14pt;letter-spacing:.3pt;line-height:1}
+.phone-box .l{font-size:7.5pt;color:var(--mut);margin-top:1mm;line-height:1.2}
+.phone-full{
+  background:var(--navy);color:#fff;border-radius:2mm;
+  padding:3mm 3mm;display:flex;align-items:center;gap:3mm;margin-bottom:2mm;
+}
+.phone-full .n{color:var(--gold-soft);font-weight:900;font-size:11pt;flex:none}
+.phone-full .l{font-size:8.5pt;line-height:1.3;color:#fff}
+.back .footer-brand{
+  margin-top:auto;padding-top:4mm;border-top:1pt solid var(--line);
+  text-align:center;
+}
+.back .footer-brand .name{font-weight:800;color:var(--navy);font-size:10pt}
+.back .footer-brand .url{font-size:8pt;color:var(--brand);margin-top:1mm}
+.back .footer-brand .small{font-size:7pt;color:var(--mut);margin-top:2mm}
+
+/* ---------- INNER FLAP (middle panel of side 1) ---------- */
+.flap{
+  background:
+    radial-gradient(closest-side at 80% 100%, rgba(54,97,201,.10), transparent 70%),
+    #fff;
+  padding:9mm 8mm;
+}
+.flap .intro{
+  font-size:9.5pt;line-height:1.5;color:#222;margin-bottom:4mm;
+}
+.flap .intro strong{color:var(--navy)}
+
+/* ---------- INSIDE PANELS (side 2) ---------- */
+.panel.inside h2{color:var(--brand);margin-bottom:3mm;font-size:12pt}
+
+/* violence quick cards */
+.vmini{display:grid;grid-template-columns:1fr;gap:2mm;margin-bottom:3mm}
+.vrow{
+  display:flex;gap:3mm;align-items:flex-start;
+  padding:2mm 2.5mm;border-radius:1.8mm;border:1pt solid var(--line);background:#fff;
+}
+.vrow .vi{
+  flex:none;width:9mm;height:9mm;border-radius:1.8mm;
+  display:grid;place-items:center;background:#f0e5c5;color:var(--navy);
+}
+.vrow .vi.p{background:#f5d8e0;color:var(--pink)}
+.vrow .vi.t{background:#d6efe9;color:var(--teal)}
+.vrow .vi.b{background:#d7def2;color:var(--brand)}
+.vrow .vt{flex:1;min-width:0}
+.vrow .vt .vh{font-weight:800;font-size:8.8pt;color:var(--navy);line-height:1.15}
+.vrow .vt .vd{font-size:7.8pt;color:#333;margin-top:.8mm;line-height:1.3}
+
+/* step list */
+.steps-mini{display:grid;grid-template-columns:1fr;gap:2mm;margin-bottom:3mm}
+.step-row{
+  display:flex;gap:3mm;align-items:flex-start;
+  padding:2mm 2.5mm;border-radius:1.8mm;background:#f4f6fb;border-left:3pt solid var(--gold);
+}
+.step-row .sn{
+  flex:none;width:7mm;height:7mm;border-radius:50%;
+  background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:800;font-size:9pt;
+}
+.step-row .sc{flex:1;min-width:0}
+.step-row .sh{font-weight:800;font-size:8.8pt;color:var(--navy);line-height:1.15}
+.step-row .sd{font-size:7.8pt;color:#333;margin-top:.6mm;line-height:1.3}
+
+/* parent tips */
+.ptip{
+  background:#fff;border:1pt solid var(--line);border-radius:1.8mm;
+  padding:2.5mm 3mm;margin-bottom:2mm;
+}
+.ptip h4{font-size:9pt;color:var(--navy);margin-bottom:1mm;display:flex;gap:2mm;align-items:center}
+.ptip p{font-size:8pt;color:#333;margin:0;line-height:1.35}
+.ptip .tag{
+  display:inline-block;font-size:6.8pt;font-weight:800;
+  padding:.8mm 2mm;border-radius:999pt;background:var(--gold);color:var(--navy);
+  margin-right:2mm;letter-spacing:.4pt;text-transform:uppercase;
+}
+
+/* callouts */
+.note{
+  padding:2.5mm 3mm;border-radius:1.8mm;margin:2mm 0;
+  background:#fff7e1;border:1pt solid #e7c96a;font-size:8.2pt;color:#5a3f00;
+}
+.note strong{color:#422e00}
+.note.warn{background:#fbeaea;border-color:#d89494;color:#6b1a1a}
+.note.warn strong{color:#3f0a0a}
+.note.ok{background:#e8f4ee;border-color:#8dc6a0;color:#13461f}
+.note.ok strong{color:#0a2f14}
+
+/* page label (subtle) */
+.plabel{
+  position:absolute;top:3mm;right:4mm;
+  font-size:6.5pt;letter-spacing:1pt;color:#aab0c1;text-transform:uppercase;font-weight:700;
+}
+
+/* ---------- SHEET DIVIDER LABEL ---------- */
+.sheet-title{
+  font-size:11pt;font-weight:700;color:#555;
+  letter-spacing:.5pt;margin:4px 0 -4px;text-align:center;
+}
+
+/* ---------- SCREEN PREVIEW ---------- */
+@media screen{
+  body{padding:22px 10px;min-height:100vh}
+  .sheet{margin:0 auto}
+  .print-hint{
+    max-width:620px;text-align:center;color:#333;
+    background:#fff;border:1px solid #d0d5e2;border-radius:8px;
+    padding:14px 18px;font-size:14px;
+  }
+  .print-hint kbd{
+    background:#f4f6fb;border:1px solid #cfd5e4;border-bottom-width:2px;
+    border-radius:4px;padding:1px 6px;font-family:inherit;font-size:12px;
+  }
+}
+
+/* ---------- PRINT ---------- */
+@page{ size:A4 landscape; margin:0; }
+@media print{
+  body{background:#fff;padding:0;gap:0;display:block}
+  .print-hint,.sheet-title{display:none !important}
+  .sheet{
+    box-shadow:none;margin:0;
+    page-break-after:always;break-after:page;
+  }
+  .sheet:last-child{page-break-after:auto;break-after:auto}
+  .panel{border-right:1px dashed #cfd5e4}
+}
+</style>
+</head>
+<body>
+
+<div class="print-hint">
+  <strong>Tek kağıt broşür</strong> · Baskı ayarları: <kbd>Ctrl + P</kbd> → Düzen: <strong>Yatay (Landscape)</strong> · Kenar boşlukları: <strong>Yok (None)</strong> · Çift taraflı: <strong>Kısa kenardan çevir</strong> (Short edge). Dikey iki kat olarak katlayın.
+</div>
+
+<div class="sheet-title">▸ DIŞ YÜZ · Sol=Arka Kapak · Orta=İç Kapak · Sağ=ÖN KAPAK</div>
+
+<!-- ================================= PAGE 1 (OUTSIDE) ================================= -->
+<section class="sheet">
+
+  <!-- PANEL 1: ARKA KAPAK -->
+  <div class="panel back">
+    <span class="plabel">Arka Kapak</span>
+    <h2>☎ Acil Yardım</h2>
+    <div class="phone-row">
+      <div class="phone-box"><div class="n">155</div><div class="l">Polis İmdat · Siber suç</div></div>
+      <div class="phone-box"><div class="n">112</div><div class="l">Acil Çağrı</div></div>
+      <div class="phone-box"><div class="n">183</div><div class="l">Aile · Kadın · Çocuk Danışma</div></div>
+      <div class="phone-box"><div class="n">KADES</div><div class="l">Kadın Destek Uyg.</div></div>
+    </div>
+
+    <div class="phone-full">
+      <div class="n">ihbarweb<br/>.org.tr</div>
+      <div class="l">BTK / USOM zararlı içerik ihbarı</div>
+    </div>
+    <div class="phone-full" style="background:#3a1e4a">
+      <div class="n">egm.gov.tr<br/>/siber</div>
+      <div class="l">EGM Siber Suçlarla Mücadele</div>
+    </div>
+
+    <h2 style="margin-top:3mm;color:var(--teal)">🏫 Okul İletişimi</h2>
+    <p style="font-size:8.5pt;margin-bottom:2mm">
+      Dijital şiddetle karşılaştığını düşündüğünde <strong>Rehberlik Servisi</strong>'ne başvurun. Anonim bildirim mümkündür.
+    </p>
+    <p style="font-size:8pt"><strong>Okul Rehberlik Servisi:</strong> <br/>Ana bina, giriş katı · Ders saatleri içinde</p>
+
+    <div class="footer-brand">
+      <div class="name">Aziz Sancar Anadolu Lisesi</div>
+      <div class="url">azizsancaranadolu.meb.k12.tr</div>
+      <div class="small">Bilgilendirme amaçlıdır · 2025–2026 · Broşürü saklayın</div>
+    </div>
+  </div>
+
+  <!-- PANEL 2: İÇ KAPAK (Ebeveyn kontrolleri) -->
+  <div class="panel flap">
+    <span class="plabel">İç Kapak</span>
+    <h2>👨‍👩‍👧 Velilere Hızlı Başvuru</h2>
+    <p class="intro">
+      Ebeveyn kontrolü <strong>casusluk değil — süzgeçtir</strong>. Çocuğa açıkça söyleyin ne yaptığınızı.
+      <em>Aşağıdaki ayarlar 10 dakikada kurulabilir.</em>
+    </p>
+
+    <div class="ptip">
+      <h4><span class="tag">iOS</span> Ekran Süresi</h4>
+      <p>Ayarlar → Ekran Süresi → Aile Paylaşımı. <strong>İçerik kısıtlamaları</strong>, uygulama sınırı, 22:00–07:00 molasız zaman, satın alma onayı.</p>
+    </div>
+
+    <div class="ptip">
+      <h4><span class="tag">Android</span> Family Link</h4>
+      <p>Play Store'dan yükleyin. <strong>Uygulama onayı</strong>, günlük süre, yatma kilidi, SafeSearch zorunlu, uzaktan "yemek vakti" kilidi.</p>
+    </div>
+
+    <div class="ptip">
+      <h4><span class="tag">Wi-Fi</span> Modem Filtresi</h4>
+      <p>BTK'dan ücretsiz <strong>"Aile Profili"</strong> talep edin — operatörü arayın. Alternatif: DNS'i <span class="tt">185.228.168.168</span> yapın (CleanBrowsing Aile filtresi — tüm ev cihazları etkilenir).</p>
+    </div>
+
+    <div class="ptip">
+      <h4><span class="tag">App</span> İçi Ayarlar</h4>
+      <p><strong>YouTube:</strong> Kısıtlı Mod · <strong>TikTok:</strong> Aile Eşleştirme · <strong>Instagram:</strong> Ebeveyn Denetimi menüsü.</p>
+    </div>
+
+    <div class="note warn">
+      <strong>YAPMAYIN:</strong> Gizli casus yazılım · Telefon karıştırmak · Ceza olarak ele koymak. Güveni yıkan her şey çocuğu faile iter.
+    </div>
+  </div>
+
+  <!-- PANEL 3: ÖN KAPAK -->
+  <div class="panel cover">
+    <span class="plabel" style="color:rgba(255,255,255,.35)">Ön Kapak</span>
+    <div class="school-tag">
+      <svg width="16" height="16" viewBox="0 0 64 64" fill="none"><path d="M32 4 56 14v18c0 14-10 24-24 28C18 56 8 46 8 32V14Z" fill="#e7c96a"/></svg>
+      AZİZ SANCAR ANADOLU LİSESİ
+    </div>
+
+    <div>
+      <h1>Dijital<br/>Okuryazarlık</h1>
+      <div class="sub">Ekrandaki hayat, <em>gerçek hayattır.</em></div>
+      <span class="pill">Öğrenciler · Veliler · Öğretmenler</span>
+    </div>
+
+    <div class="art">
+      <!-- Cover illustration: shield + phone + heart -->
+      <svg width="72mm" height="85mm" viewBox="0 0 200 240">
+        <defs>
+          <linearGradient id="cs" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#e7c96a"/><stop offset="1" stop-color="#d14d73"/>
+          </linearGradient>
+          <linearGradient id="ph" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#2a3a6e"/><stop offset="1" stop-color="#0e1a3e"/>
+          </linearGradient>
+        </defs>
+        <!-- shield outline -->
+        <path d="M100 20 L160 42 V120 C160 170 135 205 100 220 C65 205 40 170 40 120 V42 Z"
+              fill="none" stroke="url(#cs)" stroke-width="2" stroke-dasharray="4 5" opacity=".7"/>
+        <!-- phone -->
+        <g transform="translate(70 50)">
+          <rect x="0" y="0" width="60" height="110" rx="10" fill="url(#ph)" stroke="rgba(255,255,255,.25)"/>
+          <rect x="4" y="6" width="52" height="90" rx="5" fill="#0a142e"/>
+          <rect x="22" y="10" width="16" height="3" rx="1.5" fill="#2a3a6e"/>
+          <rect x="10" y="26" width="30" height="7" rx="3.5" fill="#2f3d6c"/>
+          <rect x="24" y="38" width="28" height="7" rx="3.5" fill="#3661c9" opacity=".7"/>
+          <!-- lock on screen -->
+          <g transform="translate(16 56)">
+            <rect x="0" y="8" width="28" height="22" rx="3" fill="url(#cs)"/>
+            <path d="M5 8v-3a9 9 0 0 1 18 0v3" fill="none" stroke="#fff" stroke-width="2.2"/>
+            <circle cx="14" cy="19" r="2" fill="#0e1a3e"/>
+          </g>
+          <rect x="10" y="86" width="40" height="6" rx="3" fill="#2f3d6c"/>
+        </g>
+        <!-- heart badge -->
+        <g transform="translate(140 48)">
+          <circle cx="0" cy="0" r="18" fill="#fff" opacity=".12"/>
+          <path d="M0 8 C -12 -2 -12 -16 -4 -16 C -1 -16 0 -13 0 -11 C 0 -13 1 -16 4 -16 C 12 -16 12 -2 0 8 Z" fill="#d14d73"/>
+        </g>
+        <!-- check badge -->
+        <g transform="translate(54 170)">
+          <circle cx="0" cy="0" r="16" fill="#fff" opacity=".12"/>
+          <path d="M-6 0 L -1 5 L 7 -5" fill="none" stroke="#e7c96a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="foot">DİJİTAL ŞİDDETE KARŞI · 2025 – 2026</div>
+  </div>
+
+</section>
+
+<div class="sheet-title">▸ İÇ YÜZ · Soldan sağa okuyun (açıldığında görünen 3 kolon)</div>
+
+<!-- ================================= PAGE 2 (INSIDE) ================================= -->
+<section class="sheet">
+
+  <!-- PANEL 4: Dijital Şiddet + Türler -->
+  <div class="panel inside">
+    <span class="plabel">1 / 3</span>
+    <h2>Dijital Şiddet Nedir?</h2>
+    <p>
+      İnternet, sosyal medya, mesajlaşma ve oyunlarda bir kişiye zarar vermek, korkutmak, aşağılamak ya da kontrol etmek amacıyla yapılan her davranış <strong>dijital şiddet</strong>tir.
+      "Şaka", "takma isim", "silerim geçer" — hiçbiri bunu <em>daha az ciddi</em> yapmaz.
+    </p>
+
+    <h3 style="color:var(--pink);margin-top:3mm">En Sık 6 Tür</h3>
+
+    <div class="vmini">
+      <div class="vrow"><div class="vi p">💬</div><div class="vt">
+        <div class="vh">Siber Zorbalık</div>
+        <div class="vd">Grup/DM'de aşağılama, alay, hedef gösterme.</div>
+      </div></div>
+      <div class="vrow"><div class="vi b">📍</div><div class="vt">
+        <div class="vh">Doxxing</div>
+        <div class="vd">Adres, telefon, ailenin bilgileri izinsiz paylaşılır. TCK m.134 kapsamında suçtur.</div>
+      </div></div>
+      <div class="vrow"><div class="vi p">📸</div><div class="vt">
+        <div class="vh">Rızasız Görüntü</div>
+        <div class="vd">Özel fotoğraf/videoyu yaymak suçtur. Yayan <strong>herkes</strong> sorumludur.</div>
+      </div></div>
+      <div class="vrow"><div class="vi">🧵</div><div class="vt">
+        <div class="vh">Sextortion</div>
+        <div class="vd">"Fotoğraf gönder yoksa…" tehdidi. Ödeme yapma, kaydet, bildir.</div>
+      </div></div>
+      <div class="vrow"><div class="vi t">🎭</div><div class="vt">
+        <div class="vh">Grooming</div>
+        <div class="vd">Yetişkinin güven inşa edip cinsel içerik istemesi. "Ailene söyleme" kırmızı bayraktır.</div>
+      </div></div>
+      <div class="vrow"><div class="vi b">❤️‍🩹</div><div class="vt">
+        <div class="vh">Flört Şiddeti</div>
+        <div class="vd">Şifre istemek, konum takibi, kimle mesajlaşacağını denetlemek — sevgi değil, şiddet.</div>
+      </div></div>
+    </div>
+
+    <div class="note">
+      <strong>Unutma:</strong> "Anonim" diye bir şey yoktur. Ekran görüntüsü ve IP kaydı faili mutlaka ortaya çıkarır.
+    </div>
+  </div>
+
+  <!-- PANEL 5: 5 Adım + Uyarı İşaretleri -->
+  <div class="panel inside">
+    <span class="plabel">2 / 3</span>
+    <h2>Ne Yapmalı? — 5 Adım</h2>
+
+    <div class="steps-mini">
+      <div class="step-row"><div class="sn">1</div><div class="sc">
+        <div class="sh">Cevap Verme, Kanıt Topla</div>
+        <div class="sd">Ekran görüntüsü al (tarih, saat, kullanıcı adı görünsün). URL kaydet.</div>
+      </div></div>
+      <div class="step-row"><div class="sn">2</div><div class="sc">
+        <div class="sh">Engelle ve Bildir</div>
+        <div class="sd">Platform içi şikâyet + engelle. Birden fazla rapor etkili olur.</div>
+      </div></div>
+      <div class="step-row"><div class="sn">3</div><div class="sc">
+        <div class="sh">Güvenilir Yetişkine Anlat</div>
+        <div class="sd">Aile, rehber öğretmen, okul idaresi. Yalnız taşıma — susmak faili güçlendirir.</div>
+      </div></div>
+      <div class="step-row"><div class="sn">4</div><div class="sc">
+        <div class="sh">Resmi Bildirim</div>
+        <div class="sd">Tehdit, şantaj, görüntü yayımı varsa <strong>155</strong> veya <strong>ihbarweb.org.tr</strong>.</div>
+      </div></div>
+      <div class="step-row"><div class="sn">5</div><div class="sc">
+        <div class="sh">Kendine İyi Bak</div>
+        <div class="sd">Ekrandan ara ver. Uyu, yürü, güvendiğinle konuş. Gerekirse okul psikoloğu.</div>
+      </div></div>
+    </div>
+
+    <h3 style="margin-top:2mm;color:var(--brand)">🚩 Uyarı İşaretleri (Sende / Arkadaşında)</h3>
+    <ul class="bul">
+      <li>Telefon bildirimi gelince içini korku kaplıyor</li>
+      <li>Ani sosyal medya kapatma, hesap silme</li>
+      <li>Uyku ve iştah düzeninde bozulma</li>
+      <li>Okula gitme isteğinin azalması, not düşmesi</li>
+      <li>"Kimseye söyleme" ricaları</li>
+      <li>"Haklılar galiba" düşüncesi — <em>hayır, değiller</em></li>
+    </ul>
+
+    <div class="note ok">
+      <strong>Hatırla:</strong> Senin suçun değil. Yardım istemek zayıflık değil <strong>zekâdır</strong>.
+    </div>
+  </div>
+
+  <!-- PANEL 6: Velilere + Koruma + Son Söz -->
+  <div class="panel inside">
+    <span class="plabel">3 / 3</span>
+    <h2>Velilere 4 Altın Kural</h2>
+
+    <div class="ptip">
+      <h4>1 · Konuşun, Sorgulamadan</h4>
+      <p>"Neden hâlâ telefondasın?" yerine "Bugün internette hoşuna giden ne oldu?" — açık uçlu sorular kapıyı açık tutar.</p>
+    </div>
+    <div class="ptip">
+      <h4>2 · Güvenli Kişi Olun</h4>
+      <p>Çocuğunuz siber zorbalık yaşadığında ilk koşacağı kişi olun. Yargılamadan dinleyin, sonra çözün.</p>
+    </div>
+    <div class="ptip">
+      <h4>3 · Dijital Aile Sözleşmesi</h4>
+      <p>Ekran süresi, yatak odasında telefon yasağı, paylaşım kuralları — <strong>birlikte</strong> yazın, tek taraflı değil.</p>
+    </div>
+    <div class="ptip">
+      <h4>4 · Kendiniz Örnek Olun</h4>
+      <p>Yemekte telefon yoksa herkes için yok. Çocuk söyleneni değil <em>görüleni</em> yapar.</p>
+    </div>
+
+    <h3 style="margin-top:2mm;color:var(--pink)">🔐 Herkes İçin — Koruma</h3>
+    <ul class="bul">
+      <li>Her hesapta farklı şifre + <strong>2FA</strong> aktif</li>
+      <li>Profil gizliliği, konum servisi kapalı</li>
+      <li>Tanımadığın takip isteğini kabul etme</li>
+      <li><strong>T.H.I.N.K</strong>: True · Helpful · Inspiring · Necessary · Kind — değilse gönderme</li>
+      <li>Yaymadan önce kaynak kontrolü yap</li>
+    </ul>
+
+    <div class="note warn">
+      <strong>Acil!</strong> Çocuk/genç kendine zarar, intihar, cinsel şantaj dile getirdiyse <strong>112 / 155</strong> — beklemeyin.
+    </div>
+
+    <p style="text-align:center;margin-top:3mm;font-size:9.5pt;color:var(--navy);font-weight:700">
+      "Klavyen sessizse sen de sessizsin."
+    </p>
+    <p style="text-align:center;font-size:8pt;color:var(--mut)">
+      Birine destek olmak çoğu zaman tek bir cümleye bakar:<br/><em style="color:var(--pink)">"Yanındayım."</em>
+    </p>
+  </div>
+
+</section>
+
+</body>
+</html>

@@ -1,0 +1,1660 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0b1020" />
+<meta name="description" content="Aziz Sancar Anadolu Lisesi · Dijital Okuryazarlık Kılavuzu — lise öğrencileri için dijital şiddet ve güvenli internet rehberi." />
+<title>Aziz Sancar Anadolu Lisesi · Dijital Okuryazarlık Kılavuzu</title>
+
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' x2='1' y1='0' y2='1'><stop offset='0' stop-color='%237aa2ff'/><stop offset='1' stop-color='%23b388ff'/></linearGradient></defs><path fill='url(%23g)' d='M32 4 56 14v18c0 14-10 24-24 28C18 56 8 46 8 32V14Z'/><path fill='none' stroke='white' stroke-width='3' stroke-linecap='round' d='M20 34c6-10 18-10 24 0M24 28c4-6 12-6 16 0'/></svg>" />
+
+<style>
+/* =========================================================
+   Aziz Sancar Anadolu Lisesi — Dijital Okuryazarlık Kılavuzu
+   Tek dosya, harici bağımlılık yok, mobile-first.
+   ========================================================= */
+
+:root{
+  --bg:#070b1c;
+  --bg-2:#0d1330;
+  --panel: rgba(255,255,255,.045);
+  --panel-2: rgba(255,255,255,.07);
+  --ink:#f3f5ff;
+  --ink-dim:#b7c0e4;
+  --muted:#8890b8;
+  --line: rgba(255,255,255,.10);
+  --brand:#6aa6ff;        /* okul mavisi */
+  --brand-2:#b388ff;      /* violet accent */
+  --gold:#ffd166;         /* okul altın */
+  --teal:#34e0c5;
+  --pink:#ff8ab7;
+  --danger:#ff6b6b;
+  --ok:#34d399;
+  --radius:18px;
+  --radius-sm:12px;
+  --maxw:1140px;
+  --shadow: 0 10px 40px rgba(5,8,24,.6);
+  --grad-brand: linear-gradient(135deg,#6aa6ff 0%, #b388ff 55%, #ff8ab7 100%);
+  --grad-warm: linear-gradient(135deg,#ffd166 0%, #ff8ab7 60%, #ff6b6b 100%);
+  --grad-cool: linear-gradient(135deg,#34e0c5 0%, #6aa6ff 60%, #b388ff 100%);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(1200px 700px at 90% -10%, rgba(179,136,255,.30), transparent 60%),
+    radial-gradient(1000px 600px at -10% 5%, rgba(106,166,255,.28), transparent 60%),
+    radial-gradient(800px 500px at 50% 110%, rgba(255,138,183,.18), transparent 60%),
+    var(--bg);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%}
+a{color:#9cc0ff;text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+
+/* ---------- ANIMATED BACKGROUND BLOBS ---------- */
+.bg-blobs{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.bg-blobs .b{position:absolute;border-radius:50%;filter:blur(80px);opacity:.35;animation:float 18s ease-in-out infinite}
+.bg-blobs .b1{width:480px;height:480px;left:-120px;top:-120px;background:#6aa6ff}
+.bg-blobs .b2{width:520px;height:520px;right:-160px;top:20vh;background:#b388ff;animation-delay:-6s}
+.bg-blobs .b3{width:460px;height:460px;left:30vw;bottom:-220px;background:#ff8ab7;animation-delay:-12s}
+@keyframes float{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(40px,-30px) scale(1.08)}
+  66%{transform:translate(-30px,30px) scale(.95)}
+}
+@media (prefers-reduced-motion:reduce){.bg-blobs .b{animation:none}}
+
+/* ---------- TOP BAR / SCHOOL BRAND ---------- */
+.topbar{
+  position:sticky;top:0;z-index:20;
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  background: rgba(7,11,28,.72);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{
+  max-width:var(--maxw);margin:0 auto;
+  padding:12px 22px;display:flex;align-items:center;gap:14px;
+}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-logo{flex:none;width:42px;height:42px}
+.brand-text{min-width:0}
+.brand-text .school{font-size:13px;color:var(--ink-dim);letter-spacing:.6px;text-transform:uppercase;line-height:1}
+.brand-text .title{font-size:15.5px;font-weight:700;line-height:1.2;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-actions{margin-left:auto;display:flex;gap:8px}
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:9px 14px;border-radius:999px;
+  font-size:13.5px;font-weight:600;color:var(--ink);
+  border:1px solid var(--line);background:rgba(255,255,255,.05);
+  cursor:pointer;transition:transform .15s ease, background .15s ease;
+}
+.btn:hover{background:rgba(255,255,255,.1);transform:translateY(-1px);text-decoration:none}
+.btn.primary{background:var(--grad-brand);border-color:transparent;color:#0b1020}
+
+@media (max-width:640px){
+  .brand-text .title{font-size:13.5px;white-space:normal}
+  .top-actions .btn:not(.primary){display:none}
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;
+  padding:60px 0 80px;
+  overflow:hidden;
+}
+.hero-inner{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;
+}
+@media (max-width:900px){
+  .hero{padding:40px 0 56px}
+  .hero-inner{grid-template-columns:1fr;gap:24px}
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:7px 14px;border-radius:999px;
+  background:rgba(255,255,255,.06);border:1px solid var(--line);
+  font-size:12.5px;letter-spacing:.5px;color:var(--ink-dim);
+  text-transform:uppercase;font-weight:600;
+}
+.eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 6px rgba(255,209,102,.18)}
+h1.title{
+  font-size:clamp(34px,6.2vw,64px);
+  line-height:1.04;margin:18px 0 14px;font-weight:800;letter-spacing:-.02em;
+  background:linear-gradient(90deg,#fff 0%, #cfd9ff 55%, #e3ceff 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+h1.title em{font-style:normal;background:var(--grad-warm);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lede{font-size:clamp(16px,2vw,19px);color:var(--ink-dim);max-width:620px;margin:0 0 22px}
+.hero .chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.chip{
+  display:inline-flex;gap:8px;align-items:center;
+  padding:7px 12px;border-radius:10px;font-size:12.5px;color:var(--ink-dim);
+  background:rgba(255,255,255,.04);border:1px solid var(--line);
+}
+.cta-row{display:flex;gap:10px;flex-wrap:wrap}
+.btn-lg{padding:13px 20px;font-size:15px;border-radius:14px}
+
+/* hero illustration */
+.hero-art{position:relative;min-height:360px}
+.hero-art svg{width:100%;height:auto;filter:drop-shadow(0 20px 40px rgba(122,162,255,.25))}
+
+/* stat strip */
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+  margin:0 0 10px;
+}
+@media (max-width:820px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{
+  padding:18px 16px;border-radius:var(--radius-sm);
+  background:var(--panel);border:1px solid var(--line);
+  position:relative;overflow:hidden;
+}
+.stat::before{
+  content:"";position:absolute;inset:0;
+  background:var(--grad-brand);opacity:.08;pointer-events:none;
+}
+.stat .n{font-size:clamp(22px,3.2vw,30px);font-weight:800;letter-spacing:-.01em}
+.stat .l{font-size:13px;color:var(--ink-dim);margin-top:4px;line-height:1.35}
+.stat .i{font-size:20px;margin-bottom:4px}
+
+/* ---------- SIDE NAV (fixed drawer, always open) ---------- */
+.sidenav{
+  position:fixed;top:0;left:0;bottom:0;width:260px;z-index:30;
+  overflow-y:auto;overscroll-behavior:contain;
+  padding:18px 14px 24px;
+  background:rgba(8,12,28,.92);
+  backdrop-filter:blur(16px) saturate(140%);
+  -webkit-backdrop-filter:blur(16px) saturate(140%);
+  border-right:1px solid var(--line);
+  display:flex;flex-direction:column;gap:12px;
+  box-shadow: 2px 0 30px rgba(0,0,0,.25);
+}
+.sidenav::-webkit-scrollbar{width:6px}
+.sidenav::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:3px}
+.sidenav .sn-head{
+  display:flex;align-items:center;gap:10px;padding:2px 4px 12px;
+  border-bottom:1px solid var(--line);
+}
+.sidenav .burger{
+  width:36px;height:36px;border-radius:10px;flex:none;
+  display:grid;place-items:center;
+  background:var(--grad-brand);color:#0b1020;
+}
+.sidenav .sn-title{font-weight:700;font-size:13.5px;line-height:1.2;color:#fff}
+.sidenav .sn-sub{font-size:10.5px;color:var(--muted);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.sidenav ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:3px}
+.sidenav a{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:10px;
+  font-size:13.5px;color:var(--ink-dim);
+  border:1px solid transparent;line-height:1.2;
+}
+.sidenav a:hover{background:rgba(255,255,255,.06);color:#fff;border-color:var(--line);text-decoration:none}
+.sidenav a .em{width:22px;text-align:center;font-size:14px;flex:none}
+.sidenav .sn-foot{
+  margin-top:auto;padding:12px 6px 0;border-top:1px solid var(--line);
+  font-size:11px;color:var(--muted);line-height:1.4;
+}
+.sidenav .sn-foot a{padding:0;display:inline;color:#9cc0ff;border:0}
+
+/* Shift the whole page right on desktop */
+@media (min-width:901px){
+  body{padding-left:260px}
+}
+@media (max-width:900px){
+  .sidenav{
+    position:sticky;top:0;bottom:auto;width:auto;
+    border-right:0;border-bottom:1px solid var(--line);
+    padding:10px 12px;flex-direction:column;box-shadow:none;
+  }
+  .sidenav .sn-head{padding:0 4px 8px}
+  .sidenav ul{flex-direction:row;flex-wrap:wrap;gap:6px}
+  .sidenav a{padding:7px 10px;font-size:12.5px;white-space:nowrap}
+  .sidenav .sn-foot{display:none}
+}
+
+/* ---------- SECTION ---------- */
+section.sec{padding:72px 0;position:relative}
+section.sec:nth-of-type(even){background:linear-gradient(180deg, transparent, rgba(255,255,255,.02), transparent)}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.sec-num{
+  width:44px;height:44px;border-radius:14px;flex:none;
+  display:grid;place-items:center;font-weight:800;font-size:16px;color:#0b1020;
+  background:var(--grad-brand);
+  box-shadow: 0 8px 24px rgba(106,166,255,.35);
+}
+.sec-head h2{font-size:clamp(24px,3.4vw,34px);margin:0;letter-spacing:-.01em}
+.sec-head .sub{font-size:14px;color:var(--muted);margin:0;flex-basis:100%}
+
+h3{margin:22px 0 10px;font-size:18px}
+p{margin:0 0 12px;color:#dde1f5}
+ul,ol{margin:0 0 12px 20px;color:#dde1f5}
+li{margin:5px 0}
+strong{color:#fff}
+em{color:#ffe9b0;font-style:normal}
+
+/* ---------- GRIDS ---------- */
+.grid{display:grid;gap:16px}
+.g-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:960px){.g-3,.g-4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.g-2,.g-3,.g-4{grid-template-columns:1fr}}
+
+/* ---------- CARD ---------- */
+.card{
+  position:relative;overflow:hidden;
+  padding:22px 20px 18px;border-radius:var(--radius);
+  background:var(--panel);
+  border:1px solid var(--line);
+  transition:transform .2s ease, border-color .2s ease, background .2s ease;
+}
+.card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.22);background:var(--panel-2)}
+.card .ic{
+  width:52px;height:52px;border-radius:14px;margin-bottom:12px;
+  display:grid;place-items:center;
+  background: linear-gradient(135deg, rgba(106,166,255,.22), rgba(179,136,255,.22));
+  border:1px solid rgba(255,255,255,.12);
+}
+.card.warm .ic{background:linear-gradient(135deg,rgba(255,209,102,.22),rgba(255,107,107,.22));border-color:rgba(255,138,183,.3)}
+.card.cool .ic{background:linear-gradient(135deg,rgba(52,224,197,.22),rgba(106,166,255,.22));border-color:rgba(52,224,197,.3)}
+.card.danger .ic{background:linear-gradient(135deg,rgba(255,107,107,.25),rgba(255,138,183,.20));border-color:rgba(255,107,107,.35)}
+.card.ok .ic{background:linear-gradient(135deg,rgba(52,211,153,.2),rgba(52,224,197,.2));border-color:rgba(52,211,153,.35)}
+.card h3{margin:0 0 6px;font-size:17px}
+.card p{margin:0;font-size:14.5px;color:var(--ink-dim)}
+
+/* ---------- VIOLENCE CARDS ---------- */
+.vcards{display:grid;gap:16px;grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:960px){.vcards{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.vcards{grid-template-columns:1fr}}
+.vcard{
+  position:relative;overflow:hidden;isolation:isolate;
+  padding:22px 20px 20px;border-radius:var(--radius);
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  border:1px solid var(--line);
+  transition:transform .2s ease;
+}
+.vcard:hover{transform:translateY(-3px)}
+.vcard .vic{
+  width:58px;height:58px;border-radius:16px;margin-bottom:12px;
+  display:grid;place-items:center;
+  border:1px solid var(--line);
+}
+.vcard h3{margin:0 0 4px;font-size:17px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.vcard .tag{
+  font-size:11px;padding:3px 8px;border-radius:999px;
+  background:rgba(255,107,107,.15);color:#ffd0d0;border:1px solid rgba(255,107,107,.35);
+  letter-spacing:.3px;text-transform:uppercase;font-weight:700;
+}
+.vcard p{margin:6px 0 8px;color:#dbe0f7;font-size:14.5px}
+.vcard .signs{font-size:13.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.vcard .signs strong{color:#ffe2e2}
+.vcard::after{
+  content:"";position:absolute;inset:auto -40% -60% auto;width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(255,107,107,.18),transparent 70%);z-index:-1;
+}
+
+/* ---------- STEPS (timeline) ---------- */
+.steps{display:grid;gap:14px;grid-template-columns:repeat(5,1fr);margin-top:8px}
+@media (max-width:980px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+.step{
+  position:relative;padding:18px 16px 16px;border-radius:var(--radius);
+  background:var(--panel);border:1px solid var(--line);
+}
+.step .num{
+  width:36px;height:36px;border-radius:10px;
+  display:grid;place-items:center;font-weight:800;color:#0b1020;
+  background:var(--grad-brand);margin-bottom:10px;font-size:15px;
+}
+.step h4{margin:0 0 4px;font-size:15.5px}
+.step p{margin:0;font-size:13.5px;color:var(--ink-dim)}
+
+/* ---------- CALLOUT ---------- */
+.callout{
+  display:flex;gap:14px;
+  padding:18px 20px;border-radius:var(--radius);
+  border:1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,209,102,.08), rgba(255,209,102,.02));
+  margin:14px 0;
+}
+.callout.danger{background:linear-gradient(180deg,rgba(255,107,107,.12),rgba(255,107,107,.02));border-color:rgba(255,107,107,.4)}
+.callout.ok{background:linear-gradient(180deg,rgba(52,211,153,.10),rgba(52,211,153,.02));border-color:rgba(52,211,153,.4)}
+.callout .ic-lg{flex:none;width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.08);display:grid;place-items:center;border:1px solid var(--line)}
+.callout h4{margin:0 0 4px;font-size:16px}
+.callout p{margin:0;color:var(--ink-dim)}
+
+/* ---------- PHONES ---------- */
+.phones{display:grid;gap:14px;grid-template-columns:repeat(3,1fr)}
+@media (max-width:820px){.phones{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.phones{grid-template-columns:1fr}}
+.phone{
+  position:relative;overflow:hidden;isolation:isolate;
+  padding:18px 18px;border-radius:var(--radius);
+  background:var(--panel);border:1px solid var(--line);
+  display:flex;gap:14px;align-items:center;
+}
+.phone .p-ic{flex:none;width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:var(--grad-cool)}
+.phone .num{font-size:22px;font-weight:800;letter-spacing:.5px;color:#fff;line-height:1}
+.phone .lbl{font-size:13px;color:var(--ink-dim);margin-top:3px}
+.phone.pri .p-ic{background:var(--grad-warm)}
+
+/* ---------- QUIZ ---------- */
+details.q{
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px 16px;background:var(--panel);margin:10px 0;
+  transition:border-color .2s ease, background .2s ease;
+}
+details.q[open]{background:linear-gradient(180deg,rgba(106,166,255,.12),rgba(106,166,255,.04));border-color:rgba(106,166,255,.45)}
+details.q summary{cursor:pointer;font-weight:600;display:flex;gap:10px;align-items:center;list-style:none}
+details.q summary::-webkit-details-marker{display:none}
+details.q summary::before{
+  content:"";width:22px;height:22px;border-radius:7px;flex:none;
+  background:var(--grad-brand);transition:transform .2s ease;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M6 9l6 6 6-6' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/18px no-repeat;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M6 9l6 6 6-6' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/18px no-repeat;
+  transform:rotate(-90deg);
+}
+details.q[open] summary::before{transform:rotate(0)}
+details.q .ans{margin:10px 0 2px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:#e2e7ff;font-size:14.5px}
+
+/* ---------- DIVIDER WAVE ---------- */
+.wave{display:block;width:100%;height:60px;margin:-1px 0}
+
+/* ---------- FOOTER ---------- */
+footer{padding:40px 0 60px;color:var(--ink-dim);text-align:center;font-size:13.5px}
+footer .sig{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);
+  margin-top:14px;
+}
+
+/* ---------- PRINT / BOOKLET (A4) ---------- */
+@page{ size: A4; margin: 14mm 12mm 16mm 12mm; }
+@page :first{ margin: 0; }
+
+@media print{
+  :root{
+    --bg:#fff;--bg-2:#fff;--panel:#fff;--panel-2:#fff;
+    --ink:#111; --ink-dim:#333; --muted:#555;
+    --line:#cfd3e0;
+  }
+  html,body{background:#fff !important;color:#111 !important}
+  body{font-size:10.5pt;line-height:1.45;padding-left:0 !important}
+  .bg-blobs,.topbar,.toc,.sidenav,.top-actions,.wave,.cta-row,.hero .chips{display:none !important}
+
+  /* Keep gradient look only on cover */
+  h1.title,h2,h3,h4,p,li,strong,em,.sub,.lbl,.card p,.vcard p,.step p,.card h3,.vcard h3,.step h4,.callout h4{
+    color:#111 !important;-webkit-text-fill-color:#111 !important;background:none !important;
+  }
+  a{color:#000;text-decoration:none}
+  a[href^="http"]::after{content:" ("attr(href)")";font-size:8.5pt;color:#555}
+  .brand-text .title{white-space:normal}
+
+  /* ---------- COVER PAGE ---------- */
+  .hero{
+    padding:0 !important;margin:0 !important;
+    width:210mm;height:297mm;
+    background:
+      radial-gradient(closest-side at 75% 20%, rgba(179,136,255,.35), transparent 65%),
+      radial-gradient(closest-side at 20% 80%, rgba(106,166,255,.35), transparent 65%),
+      linear-gradient(180deg,#0b1020 0%, #1a2147 100%) !important;
+    color:#fff !important;
+    page-break-after:always;break-after:page;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;position:relative;
+  }
+  .hero-inner{
+    grid-template-columns:1fr;
+    width:170mm;padding:20mm 0;
+    text-align:center;gap:18px;
+  }
+  .hero h1.title,.hero p.lede{
+    color:#fff !important;-webkit-text-fill-color:#fff !important;
+  }
+  .hero h1.title{
+    font-size:42pt !important;line-height:1.05;margin:10mm 0 6mm;
+    background:linear-gradient(90deg,#fff,#cfd9ff,#e3ceff) !important;
+    -webkit-background-clip:text !important;background-clip:text !important;
+    -webkit-text-fill-color:transparent !important;
+  }
+  .hero h1.title em{
+    background:linear-gradient(90deg,#ffd166,#ff8ab7,#b388ff) !important;
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent !important;
+  }
+  .hero p.lede{font-size:12pt;color:#cfd6ff !important;-webkit-text-fill-color:#cfd6ff !important;max-width:150mm;margin:0 auto}
+  .hero-art{display:block;margin:12mm auto 0;max-width:80mm}
+  .hero-art svg{max-width:80mm;filter:none}
+  .stats{display:none !important}
+
+  /* Cover brand block */
+  .hero::before{
+    content:"AZİZ SANCAR ANADOLU LİSESİ";
+    position:absolute;top:22mm;left:0;right:0;text-align:center;
+    color:#ffd166;font-size:11pt;letter-spacing:6pt;font-weight:700;
+  }
+  .hero::after{
+    content:"Dijital Okuryazarlık Kılavuzu · 2025–2026";
+    position:absolute;bottom:22mm;left:0;right:0;text-align:center;
+    color:#b9c8ff;font-size:10pt;letter-spacing:2pt;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  main{display:block}
+  section.sec{
+    padding:12mm 0 8mm;margin:0;
+    page-break-inside:auto;break-inside:auto;
+  }
+  section.sec + section.sec{page-break-before:auto}
+  /* Major sections start on fresh page */
+  #siddet,#turler,#isaretler,#ne-yapmali,#arkadas,#korunma,#yardim,#quiz,#velilere,#kaynakca{
+    page-break-before:always;break-before:page;
+  }
+  .sec-head{margin-bottom:6mm}
+  .sec-head h2{font-size:18pt !important;margin:0}
+  .sec-head .sub{font-size:10pt;color:#444}
+  .sec-num{
+    width:12mm;height:12mm;border-radius:3mm;
+    background:#0b1020 !important;color:#fff !important;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  h3{font-size:12pt;margin:5mm 0 2mm}
+
+  /* Cards / boxes in print */
+  .card,.vcard,.step,.callout,.phone,details.q,.stat{
+    background:#fff !important;border:.4mm solid #b8bdd0 !important;
+    border-radius:2.5mm;box-shadow:none !important;
+    padding:4mm 5mm !important;margin-bottom:3mm !important;
+    page-break-inside:avoid;break-inside:avoid;
+  }
+  .card .ic,.vcard .vic,.step .num{
+    width:9mm;height:9mm;border-radius:2mm;margin-bottom:2mm;
+    background:#0b1020 !important;color:#fff !important;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  .card .ic svg,.vcard .vic svg{stroke:#fff !important}
+  .vcard .tag{background:#fff;color:#111;border:.3mm solid #666}
+  .grid,.vcards,.steps,.phones{gap:3mm !important}
+  .g-3,.g-4,.vcards{grid-template-columns:repeat(2,1fr) !important}
+  .steps{grid-template-columns:repeat(5,1fr) !important}
+  .phones{grid-template-columns:repeat(2,1fr) !important}
+
+  /* Callouts: grayscale but preserved */
+  .callout{background:#f5f2e8 !important;border-color:#d4c58a !important}
+  .callout.danger{background:#fbeaea !important;border-color:#d89494 !important}
+  .callout.ok{background:#ecf7f0 !important;border-color:#9cc9a8 !important}
+  .callout .ic-lg{background:#fff !important;border:.3mm solid #888}
+
+  /* Phone tiles */
+  .phone .num{color:#111 !important;font-size:14pt}
+  .phone .p-ic{background:#0b1020 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .phone .p-ic svg{stroke:#fff !important}
+
+  /* Quiz: force open */
+  details.q{padding:4mm 5mm !important}
+  details.q summary::before{display:none}
+  details.q .ans{display:block !important;margin-top:2mm;padding:3mm;background:#f4f6ff;border:.3mm dashed #8a93c4}
+  details.q[open],details.q:not([open]){background:#fff !important}
+  details.q[open] .ans,details.q .ans{display:block !important}
+
+  /* References */
+  sup.ref{background:#ffeab0 !important;border-color:#c09a3a !important;color:#5a3f00 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  ol.refs li{padding-left:12mm;font-size:9.5pt}
+  ol.refs li::before{background:#0b1020 !important;color:#fff !important;width:8mm;height:8mm;left:2mm;top:3mm;font-size:9pt}
+
+  /* Final + footer */
+  .sig{background:#fff;border:.3mm solid #666;color:#111}
+  footer{page-break-before:always;break-before:page;padding-top:20mm;color:#333}
+
+  /* Avoid orphans/widows */
+  h2,h3,h4{page-break-after:avoid;break-after:avoid}
+  p,li{orphans:3;widows:3}
+}
+
+/* ---------- UTIL ---------- */
+.muted{color:var(--muted)}
+.center{text-align:center}
+.max-700{max-width:700px;margin-left:auto;margin-right:auto}
+.hr{height:1px;background:var(--line);margin:30px 0;border:0}
+
+/* ---------- CITATIONS ---------- */
+sup.ref{
+  font-size:10.5px;font-weight:800;
+  padding:1px 6px;border-radius:6px;margin-left:3px;
+  vertical-align:super;line-height:1;
+  background:rgba(255,209,102,.16);
+  color:#ffe09a;border:1px solid rgba(255,209,102,.35);
+}
+sup.ref a{color:inherit;text-decoration:none}
+sup.ref:hover{background:rgba(255,209,102,.32)}
+ol.refs{list-style:none;padding:0;margin:8px 0 0;counter-reset:r;display:grid;gap:10px}
+ol.refs li{
+  counter-increment:r;
+  position:relative;padding:14px 16px 14px 50px;
+  border:1px solid var(--line);border-radius:12px;
+  background:var(--panel);font-size:14px;color:var(--ink-dim);
+}
+ol.refs li::before{
+  content:counter(r);
+  position:absolute;left:12px;top:12px;
+  width:28px;height:28px;border-radius:8px;
+  display:grid;place-items:center;
+  background:var(--grad-brand);color:#0b1020;
+  font-weight:800;font-size:13px;
+}
+ol.refs li strong{color:#fff}
+ol.refs li a{color:#9cc0ff;word-break:break-all}
+ol.refs li:target{border-color:rgba(255,209,102,.55);background:linear-gradient(180deg,rgba(255,209,102,.10),rgba(255,209,102,.02))}
+</style>
+</head>
+<body>
+
+<!-- decorative background -->
+<div class="bg-blobs" aria-hidden="true">
+  <div class="b b1"></div><div class="b b2"></div><div class="b b3"></div>
+</div>
+
+<!-- =========== TOP BAR / SCHOOL BRAND =========== -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <!-- School crest: shield + DNA (Aziz Sancar) + book -->
+      <svg class="brand-logo" viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="lg-s" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#6aa6ff"/>
+            <stop offset="1" stop-color="#b388ff"/>
+          </linearGradient>
+          <linearGradient id="lg-g" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#ffd166"/>
+            <stop offset="1" stop-color="#ff8ab7"/>
+          </linearGradient>
+        </defs>
+        <path d="M32 3 58 13v19c0 15-11 26-26 29C17 58 6 47 6 32V13Z" fill="url(#lg-s)"/>
+        <path d="M32 3 58 13v19c0 15-11 26-26 29C17 58 6 47 6 32V13Z" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/>
+        <!-- DNA helix -->
+        <path d="M22 20c6 6 14 6 20 0M22 44c6-6 14-6 20 0M22 20v24M42 20v24" fill="none" stroke="url(#lg-g)" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="27" cy="26" r="1.6" fill="#fff"/><circle cx="37" cy="26" r="1.6" fill="#fff"/>
+        <circle cx="27" cy="38" r="1.6" fill="#fff"/><circle cx="37" cy="38" r="1.6" fill="#fff"/>
+        <!-- book base -->
+        <path d="M19 49h26v5H19z" fill="#fff" opacity=".9"/>
+        <path d="M19 49h13v5H19zM32 49h13v5H32z" fill="none" stroke="#0b1020" stroke-width="1"/>
+      </svg>
+      <div class="brand-text">
+        <div class="school">Aziz Sancar Anadolu Lisesi</div>
+        <div class="title">Dijital Okuryazarlık Kılavuzu</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <a class="btn" href="https://azizsancaranadolu.meb.k12.tr/" target="_blank" rel="noopener" aria-label="Okul resmi sitesi">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>
+        Okul Sitesi
+      </a>
+      <button class="btn" onclick="window.print()" aria-label="Yazdır">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Yazdır
+      </button>
+      <a href="#yardim" class="btn primary">Yardım Hatları</a>
+    </div>
+  </div>
+</header>
+
+<!-- =========== HERO =========== -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <h1 class="title">Ekrandaki hayat,<br/><em>gerçek hayattır.</em></h1>
+      <p class="lede">
+        Bu kılavuz, Aziz Sancar Anadolu Lisesi öğrencileri için hazırlanmıştır.
+        Dijital dünyadaki <strong>siber zorbalık, taciz, nefret söylemi ve dijital şiddet</strong>
+        biçimlerini tanımanı, kendini ve arkadaşını korumanı hedefler.
+      </p>
+      <div class="chips">
+        <span class="chip">📚 14–18 yaş</span>
+        <span class="chip">⏱ ~10 dk okuma</span>
+        <span class="chip">🛡 Dijital şiddet odaklı</span>
+        <span class="chip">📱 Mobil uyumlu</span>
+      </div>
+      <div class="cta-row">
+        <a href="#turler" class="btn primary btn-lg">Şiddet Türlerini Gör</a>
+        <a href="#ne-yapmali" class="btn btn-lg">Ne Yapmalıyım?</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <!-- Illustrated shield + phone + people -->
+      <svg viewBox="0 0 520 460">
+        <defs>
+          <linearGradient id="h-shield" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#6aa6ff"/><stop offset="1" stop-color="#b388ff"/>
+          </linearGradient>
+          <linearGradient id="h-phone" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#1a2147"/><stop offset="1" stop-color="#0d1330"/>
+          </linearGradient>
+          <linearGradient id="h-warm" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#ffd166"/><stop offset="1" stop-color="#ff8ab7"/>
+          </linearGradient>
+          <radialGradient id="h-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#6aa6ff" stop-opacity=".45"/>
+            <stop offset="1" stop-color="#6aa6ff" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- background glow -->
+        <circle cx="260" cy="230" r="220" fill="url(#h-glow)"/>
+
+        <!-- floating particles -->
+        <g opacity=".7">
+          <circle cx="80" cy="80" r="4" fill="#ffd166"/>
+          <circle cx="450" cy="110" r="5" fill="#ff8ab7"/>
+          <circle cx="480" cy="330" r="4" fill="#34e0c5"/>
+          <circle cx="60" cy="340" r="6" fill="#b388ff"/>
+          <circle cx="120" cy="410" r="3" fill="#6aa6ff"/>
+          <circle cx="410" cy="420" r="3" fill="#ffd166"/>
+        </g>
+
+        <!-- big shield -->
+        <path d="M260 60 L400 105 V230 C400 320 340 385 260 410 C180 385 120 320 120 230 V105 Z"
+              fill="url(#h-shield)" opacity=".22" stroke="url(#h-shield)" stroke-width="2"/>
+        <path d="M260 80 L380 118 V230 C380 308 330 368 260 390 C190 368 140 308 140 230 V118 Z"
+              fill="none" stroke="rgba(255,255,255,.25)" stroke-width="1.5" stroke-dasharray="4 6"/>
+
+        <!-- phone -->
+        <g transform="translate(190 130)">
+          <rect x="0" y="0" width="140" height="220" rx="22" fill="url(#h-phone)" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/>
+          <rect x="8" y="12" width="124" height="190" rx="14" fill="#0b1020"/>
+          <rect x="56" y="18" width="28" height="6" rx="3" fill="#1a2147"/>
+          <!-- screen content: chat bubbles + heart+shield -->
+          <rect x="18" y="36" width="70" height="14" rx="7" fill="#1f2a58"/>
+          <rect x="54" y="56" width="68" height="14" rx="7" fill="#6aa6ff" opacity=".7"/>
+          <rect x="18" y="76" width="60" height="14" rx="7" fill="#1f2a58"/>
+          <!-- lock icon screen -->
+          <g transform="translate(44 106)">
+            <rect x="0" y="16" width="52" height="42" rx="6" fill="url(#h-warm)"/>
+            <path d="M10 16v-6a16 16 0 0 1 32 0v6" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="26" cy="36" r="4" fill="#0b1020"/>
+            <rect x="24" y="38" width="4" height="10" rx="2" fill="#0b1020"/>
+          </g>
+          <rect x="18" y="176" width="104" height="14" rx="7" fill="#1f2a58"/>
+          <!-- home indicator -->
+          <rect x="55" y="208" width="30" height="4" rx="2" fill="#1f2a58"/>
+        </g>
+
+        <!-- small shield badge floating -->
+        <g transform="translate(360 90)">
+          <circle cx="0" cy="0" r="32" fill="#fff" opacity=".08"/>
+          <path d="M0 -22 18 -14 V 4 C 18 16 10 24 0 26 C -10 24 -18 16 -18 4 V -14 Z" fill="url(#h-warm)"/>
+          <path d="M-7 2 L -2 7 L 8 -4" fill="none" stroke="#0b1020" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+
+        <!-- heart -->
+        <g transform="translate(110 120)">
+          <circle cx="0" cy="0" r="28" fill="#fff" opacity=".07"/>
+          <path d="M0 10 C -18 -4 -18 -22 -6 -22 C -2 -22 0 -18 0 -14 C 0 -18 2 -22 6 -22 C 18 -22 18 -4 0 10 Z" fill="#ff8ab7"/>
+        </g>
+
+        <!-- tiny chat bubble with eye (watchful) -->
+        <g transform="translate(100 300)">
+          <rect x="0" y="0" width="76" height="44" rx="14" fill="#34e0c5"/>
+          <path d="M14 44 L22 56 L30 44 Z" fill="#34e0c5"/>
+          <circle cx="26" cy="22" r="8" fill="#0b1020"/>
+          <circle cx="26" cy="22" r="3" fill="#fff"/>
+          <circle cx="50" cy="22" r="2" fill="#0b1020"/>
+        </g>
+
+        <!-- warning triangle -->
+        <g transform="translate(380 300)">
+          <path d="M0 -4 L 36 -4 L 18 -34 Z" fill="#ffd166" transform="translate(0 28)"/>
+          <text x="18" y="46" font-size="22" font-weight="900" text-anchor="middle" fill="#0b1020">!</text>
+        </g>
+
+      </svg>
+    </div>
+  </div>
+
+  <!-- stats -->
+  <div class="wrap" style="margin-top:20px">
+    <div class="stats">
+      <div class="stat">
+        <div class="i">📱</div>
+        <div class="n">%88,8</div>
+        <div class="l">Türkiye'de 16–74 yaş internet kullanımı — gençlerde neredeyse evrensel <sup class="ref"><a href="#k1">1</a></sup></div>
+      </div>
+      <div class="stat">
+        <div class="i">💬</div>
+        <div class="n">~%33</div>
+        <div class="l">Dünyada gençlerin yaklaşık üçte biri siber zorbalık deneyimlediğini bildiriyor <sup class="ref"><a href="#k3">3</a></sup></div>
+      </div>
+      <div class="stat">
+        <div class="i">🕒</div>
+        <div class="n">2 sa 56 dk</div>
+        <div class="l">Türkiye'de günlük ortalama sosyal medya kullanım süresi <sup class="ref"><a href="#k5">5</a></sup></div>
+      </div>
+      <div class="stat">
+        <div class="i">🛡</div>
+        <div class="n">%0</div>
+        <div class="l">"Sessiz kalmak" asla çözüm değil — bildir, delil topla</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== NAV =========== -->
+<aside class="sidenav" aria-label="İçindekiler">
+  <div class="sn-head">
+    <div class="burger" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </div>
+    <div>
+      <div class="sn-title">İçindekiler</div>
+      <div class="sn-sub">11 Bölüm · Kılavuz</div>
+    </div>
+  </div>
+  <ul>
+    <li><a href="#nedir"><span class="em">📖</span><span>Dijital Okuryazarlık</span></a></li>
+    <li><a href="#siddet"><span class="em">⚠️</span><span>Dijital Şiddet</span></a></li>
+    <li><a href="#turler"><span class="em">🗂</span><span>Şiddet Türleri</span></a></li>
+    <li><a href="#isaretler"><span class="em">🚩</span><span>Uyarı İşaretleri</span></a></li>
+    <li><a href="#ne-yapmali"><span class="em">🧭</span><span>Ne Yapmalı?</span></a></li>
+    <li><a href="#arkadas"><span class="em">🤝</span><span>Arkadaşına</span></a></li>
+    <li><a href="#korunma"><span class="em">🔐</span><span>Korunma</span></a></li>
+    <li><a href="#yardim"><span class="em">📞</span><span>Yardım Hatları</span></a></li>
+    <li><a href="#quiz"><span class="em">🧠</span><span>Mini Test</span></a></li>
+    <li><a href="#velilere"><span class="em">👨‍👩‍👧</span><span>Velilere</span></a></li>
+    <li><a href="#kaynakca"><span class="em">📚</span><span>Kaynakça</span></a></li>
+  </ul>
+  <div class="sn-foot">
+    Aziz Sancar Anadolu Lisesi<br/>
+    <a href="https://azizsancaranadolu.meb.k12.tr/" target="_blank" rel="noopener">azizsancaranadolu.meb.k12.tr</a>
+  </div>
+</aside>
+
+<main>
+
+<!-- =========== 1 NEDİR =========== -->
+<section class="sec" id="nedir">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">1</div>
+      <h2>Dijital Okuryazarlık Nedir?</h2>
+      <p class="sub">Sadece teknolojiyi kullanmak değil; onu <strong>anlamak, sorgulamak ve yönetmek</strong>tir.</p>
+    </div>
+
+    <div class="grid g-3">
+      <div class="card">
+        <div class="ic">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-4 12.7V19a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-4.3A7 7 0 0 0 12 2Z"/><path d="M9 21h6"/></svg>
+        </div>
+        <h3>Bilgi Okuryazarlığı</h3>
+        <p>Haberin, videonun, iddianın <em>doğru mu uydurulmuş mu</em> olduğunu kaynak kontrolüyle ayırt etmek.</p>
+      </div>
+      <div class="card cool">
+        <div class="ic">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#34e0c5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 1 1 8 0v4"/></svg>
+        </div>
+        <h3>Güvenlik Okuryazarlığı</h3>
+        <p>Şifre, mahremiyet, iki adımlı doğrulama ve izin ayarları — kendini dijital olarak korumak.</p>
+      </div>
+      <div class="card warm">
+        <div class="ic">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ff8ab7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87"/><path d="M4 21v-2a4 4 0 0 1 3-3.87"/><circle cx="12" cy="7" r="4"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Etik Okuryazarlık</h3>
+        <p>Başkalarının haklarına saygı, nefrete karşı durmak, dijital iz ve sorumluluk bilinci.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- wave divider -->
+<svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0 30 C 240 60 480 0 720 30 C 960 60 1200 0 1440 30 V60 H0 Z" fill="rgba(255,255,255,.03)"/>
+</svg>
+
+<!-- =========== 2 DİJİTAL ŞİDDET =========== -->
+<section class="sec" id="siddet">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">2</div>
+      <h2>Dijital Şiddet: Ekrandan Geliyorsa Şaka Değildir</h2>
+      <p class="sub">İnternet, sosyal medya, mesajlaşma, oyun içi sohbet ve DM'lerle bir kişiye zarar vermek; gerçek hayattaki şiddet kadar ciddidir.</p>
+    </div>
+
+    <div class="callout danger">
+      <div class="ic-lg" style="background:rgba(255,107,107,.18)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff6b6b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div>
+        <h4>Unutma</h4>
+        <p>"Sadece internet, takma isimdi, şakaydı, silerim geçer…" — bunların hiçbiri dijital şiddeti <strong>daha az ciddi</strong> yapmaz. Ekrandaki şiddet; kaygıya, uyku bozukluğuna, okul başarısızlığına ve ağır psikolojik travmalara yol açar.<sup class="ref"><a href="#k8">8</a></sup></p>
+      </div>
+    </div>
+
+    <div class="grid g-2" style="margin-top:16px">
+      <div class="card">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <h3>🎭 Anonimlik Yanılsaması</h3>
+        <p>Takma isim olsa bile <strong>hiçbir şey gerçekten silinmez</strong>. Ekran görüntüsü, IP kaydı ve platform logları faili ortaya çıkarır. <em>Dijital şiddet suçtur, anonim kalmaz.</em></p>
+      </div>
+      <div class="card cool">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#34e0c5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87"/><path d="M4 21v-2a4 4 0 0 1 3-3.87"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h3>🧩 Yalnız Değilsin</h3>
+        <p>Gençlerin büyük çoğunluğu hayatlarının bir döneminde dijital şiddete maruz kalır. Sorun <strong>sen</strong> değilsin — şiddeti uygulayanın davranışı sorundur.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== 3 TÜRLER =========== -->
+<section class="sec" id="turler">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">3</div>
+      <h2>Dijital Şiddetin Türleri</h2>
+      <p class="sub">Aşağıdaki davranışların hepsi şiddettir — birçoğu aynı zamanda <strong>suç</strong>tur.</p>
+    </div>
+
+    <div class="vcards">
+
+      <!-- Cyberbullying -->
+      <article class="vcard">
+        <div class="vic" style="background:linear-gradient(135deg,#ff8ab7,#ff6b6b)">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        </div>
+        <h3>Siber Zorbalık <span class="tag">cyberbullying</span></h3>
+        <p>Sınıf grubundan, DM'den veya yorum altından sürekli aşağılama, alay, lakap takma, hedef gösterme.</p>
+        <div class="signs"><strong>Örnek:</strong> Birinin fotoğrafıyla dalga geçen mem'ler, "grup dışı bırakma" kampanyaları.</div>
+      </article>
+
+      <!-- Harassment -->
+      <article class="vcard">
+        <div class="vic" style="background:linear-gradient(135deg,#ffd166,#ff8ab7)">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-5v12L3 13v-2z"/><path d="M11.6 16.8A3 3 0 1 1 8 18"/></svg>
+        </div>
+        <h3>Çevrimiçi Taciz <span class="tag">harassment</span></h3>
+        <p>Israrlı mesajlar, tehdit, küfür, birini hedef alıp üzerine kitle kışkırtmak (<em>pile-on</em>).</p>
+        <div class="signs"><strong>Sinyal:</strong> "Gidin bulun / cevaplayın / rapor edin" çağrıları.</div>
+      </article>
+
+      <!-- Doxxing -->
+      <article class="vcard">
+        <div class="vic" style="background:linear-gradient(135deg,#6aa6ff,#b388ff)">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3>Doxxing <span class="tag">bilgi ifşası</span></h3>
+        <p>Bir kişinin adresi, telefonu, okulu, ailesinin bilgilerinin izinsiz paylaşılması.</p>
+        <div class="signs"><strong>Neden tehlikeli:</strong> Dijital alandan gerçek hayata şiddeti taşır — TCK m.134 (Özel hayatın gizliliğini ihlal) ve m.136 kapsamında suçtur.<sup class="ref"><a href="#k9">9</a></sup></div>
+      </article>
+
+      <!-- Non-consensual image -->
+      <article class="vcard">
+        <div class="vic" style="background:linear-gradient(135deg,#ff6b6b,#b388ff)">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/><path d="M3 3l18 18" stroke="#fff" stroke-width="2.6"/></svg>
+        </div>
+        <h3>Rızasız Görüntü <span class="tag">image abuse</span></h3>
+        <p>Özel fotoğraf/video'nun izinsiz yayılması, "intikam pornosu", gizli çekim, değiştirilmiş görseller.</p>
+        <div class="signs"><strong>Bil:</strong> Görseli sen göndermiş olsan bile, <strong>yaymak</strong> TCK m.134/m.226 kapsamında suçtur.<sup class="ref"><a href="#k9">9</a></sup> Utanılacak olan sen değilsin.</div>
+      </article>
+
+      <!-- Sextortion -->
+      <article class="vcard">
+        <div class="vic" style="background:linear-gradient(135deg,#ff8ab7,#ffd166)">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <h3>Sextortion <span class="tag">cinsel şantaj</span></h3>
+        <p>"Fotoğraf gönder yoksa…", "Görüntülerini yayarım" tehdidi; çıplak fotoğraf baskısı.</p>
+        <div class="signs"><strong>Asla ödeme yapma, yeni fotoğraf gönderme.</strong> Konuşmayı kaydet ve yetişkine/polise bildir.</div>
+      </article>
+
+      <!-- Dating violence -->
+      <article class="vcard">
+        <div class="vic" style="background:linear-gradient(135deg,#ff6b6b,#ff8ab7)">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/><path d="M3 3l18 18" stroke="#fff" stroke-width="2.2"/></svg>
+        </div>
+        <h3>Dijital Flört Şiddeti <span class="tag">kontrol</span></h3>
+        <p>Partnerin şifrelerini isteme, konumunu sürekli takip, kime mesaj attığını denetleme.</p>
+        <div class="signs"><strong>Sevgi ≠ izleme.</strong> "Seni seviyorum, o yüzden kontrol ediyorum" bir şiddet cümlesidir.</div>
+      </article>
+
+      <!-- Grooming -->
+      <article class="vcard">
+        <div class="vic" style="background:linear-gradient(135deg,#b388ff,#6aa6ff)">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 21a6 6 0 0 1 12 0"/><path d="M16 3l2 2-2 2"/></svg>
+        </div>
+        <h3>Grooming <span class="tag">yetişkin yaklaşması</span></h3>
+        <p>Kendini genç gibi tanıtan yetişkinlerin oyun/sosyal medyada güven inşa edip cinsel içerik istemesi.</p>
+        <div class="signs"><strong>Kırmızı bayraklar:</strong> Aşırı iltifat, sır saklatma, hediye, "ailene söyleme". Çocuğa yönelik cinsel amaçlı yaklaşım TCK m.103 kapsamında ağır suçtur.<sup class="ref"><a href="#k9">9</a></sup></div>
+      </article>
+
+      <!-- Hate speech -->
+      <article class="vcard">
+        <div class="vic" style="background:linear-gradient(135deg,#ff6b6b,#ffd166)">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        </div>
+        <h3>Nefret Söylemi <span class="tag">hate speech</span></h3>
+        <p>Cinsiyet, inanç, etnik köken, yönelim veya engel üzerinden hakaret ve aşağılama.</p>
+        <div class="signs"><strong>"Şaka" kılıfı</strong> nefret söylemini şiddet olmaktan çıkarmaz.</div>
+      </article>
+
+      <!-- Deepfake -->
+      <article class="vcard">
+        <div class="vic" style="background:linear-gradient(135deg,#34e0c5,#6aa6ff)">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M8 3v4M16 3v4"/><path d="m10 13 4 2-4 2z" fill="#0b1020"/></svg>
+        </div>
+        <h3>Deepfake <span class="tag">manipülasyon</span></h3>
+        <p>Bir kişinin yüzünün/sesinin yapay zekâyla sahte videolara yerleştirilmesi; iftira amaçlı üretim.</p>
+        <div class="signs"><strong>Kural:</strong> Şüpheli video = kaynak kontrol et, paylaşma, bildir.</div>
+      </article>
+
+      <!-- Exclusion -->
+      <article class="vcard">
+        <div class="vic" style="background:linear-gradient(135deg,#6aa6ff,#34e0c5)">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21a6 6 0 0 1 12 0"/><path d="M17 11l4 4M21 11l-4 4"/></svg>
+        </div>
+        <h3>Sosyal Dışlama <span class="tag">exclusion</span></h3>
+        <p>Sınıf grubundan atma, "herkes sustu ama sen yaz" baskısı, dedikodu kanalları, hedef listeler.</p>
+        <div class="signs"><strong>Sessizce dışlanmak</strong> da bir şiddet biçimidir.</div>
+      </article>
+
+      <!-- Violent challenges -->
+      <article class="vcard">
+        <div class="vic" style="background:linear-gradient(135deg,#ff6b6b,#b388ff)">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5 4 19l3 1 1 3 4.5-4.5M13 6l5 5-9 9-5-1-1-5 9-9a5 5 0 0 1 5 5z"/></svg>
+        </div>
+        <h3>Şiddet Challenge'ları <span class="tag">zararlı akımlar</span></h3>
+        <p>Kavga videoları, kendine zarar veya tehlikeli akımlar, şiddete özendiren içerikler.</p>
+        <div class="signs"><strong>İzleme, paylaşma, bildir.</strong> Algoritma "izlediğini" sever — seni besler.</div>
+      </article>
+
+      <!-- Impersonation -->
+      <article class="vcard">
+        <div class="vic" style="background:linear-gradient(135deg,#ffd166,#34e0c5)">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M17 11l2 2 4-4"/></svg>
+        </div>
+        <h3>Kimlik Hırsızlığı <span class="tag">impersonation</span></h3>
+        <p>Birinin fotoğraflarıyla sahte hesap açmak, onun adına mesaj göndermek, itibarsızlaştırmak.</p>
+        <div class="signs"><strong>Hemen:</strong> platforma bildir + ekran görüntüsü al + şikâyet et.</div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- wave -->
+<svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0 30 C 240 0 480 60 720 30 C 960 0 1200 60 1440 30 V60 H0 Z" fill="rgba(255,255,255,.03)"/>
+</svg>
+
+<!-- =========== 4 İŞARETLER =========== -->
+<section class="sec" id="isaretler">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">4</div>
+      <h2>Uyarı İşaretleri</h2>
+      <p class="sub">Kendinde ya da arkadaşında fark etmen gereken sinyaller.</p>
+    </div>
+
+    <div class="grid g-2">
+      <div class="card danger">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff8a8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        </div>
+        <h3>Sende olabilir</h3>
+        <ul>
+          <li>Telefon titreyince içini bir korku kaplaması</li>
+          <li>Sosyal medyayı açtığında kalbin hızlanması</li>
+          <li>Uyku ve iştah değişiklikleri</li>
+          <li>Okula / sosyal ortamlara gitme isteğinin azalması</li>
+          <li>Sürekli bildirim kontrol / tam tersi kaçınma</li>
+          <li>"Haklılar galiba" düşüncesi</li>
+        </ul>
+      </div>
+      <div class="card danger">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff8a8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3>Arkadaşında olabilir</h3>
+        <ul>
+          <li>Aniden sosyal medyayı kapatma / hesap silme</li>
+          <li>Telefonuna bakarken gerilme, sinirlenme</li>
+          <li>Daha sessiz, içine kapanık olma</li>
+          <li>Belirli bir isim duyunca tepki verme</li>
+          <li>"Bunu kimseye söyleme" ricaları</li>
+          <li>Notlarda, davranışlarında ani düşüş</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== 5 NE YAPMALI =========== -->
+<section class="sec" id="ne-yapmali">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">5</div>
+      <h2>Dijital Şiddete Maruz Kaldıysan: 5 Adım</h2>
+      <p class="sub">Sakin ol. Sırayla hareket et. Yalnız taşıma.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h4>Cevap Verme, Kanıt Topla</h4>
+        <p>Tartışmaya girme. Ekran görüntüsü (tarih, saat, kullanıcı adı görünecek şekilde), link, URL kaydet.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h4>Engelle ve Bildir</h4>
+        <p>Platformun "şikâyet et / engelle" butonu. Birden fazla raporla hesap kapatma ihtimali artar.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h4>Güvenilir Yetişkine Anlat</h4>
+        <p>Aile, rehber öğretmen, okul müdürü. <strong>Tek başına taşıma.</strong> Susmak faili güçlendirir.</p>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <h4>Resmi Bildirim</h4>
+        <p>Tehdit, taciz, şantaj varsa <strong>155 Polis</strong> veya <strong>ihbarweb.org.tr</strong>. Suç duyurusu hakkın.</p>
+      </div>
+      <div class="step">
+        <div class="num">5</div>
+        <h4>Kendine İyi Bak</h4>
+        <p>Ekrandan ara ver, uyu, hareket et, güvendiğin biriyle konuş. Psikolojik danışmana başvur.</p>
+      </div>
+    </div>
+
+    <div class="callout ok" style="margin-top:20px">
+      <div class="ic-lg" style="background:rgba(52,211,153,.18)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <div>
+        <h4>Hatırla</h4>
+        <p><strong>Senin suçun değil.</strong> Failin davranışı senin değerini belirlemez. Yardım istemek zayıflık değil, zekâdır.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== 6 ARKADAŞINA =========== -->
+<section class="sec" id="arkadas">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">6</div>
+      <h2>Arkadaşın Maruz Kalıyorsa: Tanık Olmak Seçimdir</h2>
+      <p class="sub">Sessiz tanık, sessiz destektir — faile. Pasif kalmak masum değildir.</p>
+    </div>
+
+    <div class="grid g-2">
+      <div class="card cool">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#34e0c5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h3>Yanına git</h3>
+        <p>"Bunu gördüm, senin için üzüldüm, yanındayım." — cümle basit, etki büyük.</p>
+      </div>
+      <div class="card">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        </div>
+        <h3>Yargılama</h3>
+        <p>"Neden paylaştın ki?" yerine: "Seni kimse suçlamıyor, bunu beraber çözeriz."</p>
+      </div>
+      <div class="card warm">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        </div>
+        <h3>Kanıt sakla</h3>
+        <p>Arkadaşın adına ekran görüntüsü almak süreci hızlandırır.</p>
+      </div>
+      <div class="card ok">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Birlikte başvurun</h3>
+        <p>Rehber öğretmen / okul idaresi / aileyle birlikte gidin — tek başına gitmek zor, birlikte kolay.</p>
+      </div>
+    </div>
+
+    <div class="callout danger" style="margin-top:18px">
+      <div class="ic-lg" style="background:rgba(255,107,107,.18)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff6b6b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="m23 4-11 9L1 4"/></svg>
+      </div>
+      <div>
+        <h4>Yaymak = Suça ortak olmak</h4>
+        <p>Paylaşılan rızasız bir görseli tıklamak, retweet'lemek, "bak bu olmuş" demek — <strong>yasal olarak sorumluluk doğurur</strong> ve mağduru ikinci kez incitir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- wave -->
+<svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0 30 C 240 60 480 0 720 30 C 960 60 1200 0 1440 30 V60 H0 Z" fill="rgba(255,255,255,.03)"/>
+</svg>
+
+<!-- =========== 7 KORUNMA =========== -->
+<section class="sec" id="korunma">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">7</div>
+      <h2>Günlük Koruma Alışkanlıkları</h2>
+      <p class="sub">Küçük ayarlar, büyük güvenlik farkı.</p>
+    </div>
+
+    <div class="grid g-3">
+      <div class="card">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+        </div>
+        <h3>Güçlü + Farklı Şifreler</h3>
+        <p>Her hesaba farklı şifre. <strong>İki adımlı doğrulama (2FA)</strong> aç. Şifreyi kimseyle paylaşma.</p>
+      </div>
+      <div class="card cool">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#34e0c5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3>Konum ve Mahremiyet</h3>
+        <p>Fotoğrafların konum verisi (EXIF), canlı konum paylaşımı, açık profiller — hepsini gözden geçir.</p>
+      </div>
+      <div class="card warm">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff8ab7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11l-3 3-2-2"/></svg>
+        </div>
+        <h3>Takipçi Denetimi</h3>
+        <p>Tanımadığın kişiyi kabul etme. Ara ara hesabı temizle. "Yakın arkadaşlar" listesi kullan.</p>
+      </div>
+      <div class="card">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M22 2 12 12"/></svg>
+        </div>
+        <h3>Önce Düşün, Sonra Gönder</h3>
+        <p><strong>T.H.I.N.K:</strong> True, Helpful, Inspiring, Necessary, Kind. Değilse — gönderme.</p>
+      </div>
+      <div class="card cool">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#34e0c5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <h3>Dijital İz Bilinci</h3>
+        <p>İnternete yazdığın her şey; bir iş görüşmesinde, üniversitede, bir arkadaşlıkta geri dönebilir.</p>
+      </div>
+      <div class="card warm">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <h3>Kaynak Kontrolü</h3>
+        <p>Bir haber/video paylaşmadan önce: başka güvenilir kaynakta var mı? URL gerçek mi? Tarih ne?</p>
+      </div>
+    </div>
+
+    <div class="callout ok" style="margin-top:18px">
+      <div class="ic-lg" style="background:rgba(52,211,153,.18)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+      <div>
+        <h4>Altın kural</h4>
+        <p><strong>Yüzüne söyleyemeyeceğini yazma. Paylaşmadan önce bir soluk al.</strong> Mesajı göndermeden bekleyen 10 saniye, hayat boyu pişmanlığa değer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== 8 YARDIM =========== -->
+<section class="sec" id="yardim">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">8</div>
+      <h2>Yardım Hatları ve Başvuru</h2>
+      <p class="sub">Acil durumda tereddüt etme. Bu numaralar tam da bunun için var.</p>
+    </div>
+
+    <div class="phones">
+      <div class="phone pri">
+        <div class="p-ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div><div class="num">155</div><div class="lbl">Polis İmdat · Siber suç ihbarı dahil</div></div>
+      </div>
+      <div class="phone pri">
+        <div class="p-ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div><div class="num">112</div><div class="lbl">Acil Çağrı Merkezi</div></div>
+      </div>
+      <div class="phone pri">
+        <div class="p-ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87"/><path d="M4 21v-2a4 4 0 0 1 3-3.87"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div><div class="num">183</div><div class="lbl">Aile · Kadın · Çocuk · Sosyal Hizmet Danışma</div></div>
+      </div>
+      <div class="phone">
+        <div class="p-ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
+        </div>
+        <div><div class="num">KADES</div><div class="lbl">Kadın Destek Uygulaması (mobil)</div></div>
+      </div>
+      <div class="phone">
+        <div class="p-ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>
+        </div>
+        <div><div class="num">ihbarweb.org.tr</div><div class="lbl">BTK / USOM — zararlı içerik ihbarı</div></div>
+      </div>
+      <div class="phone">
+        <div class="p-ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div><div class="num">cimer.gov.tr</div><div class="lbl">Cumhurbaşkanlığı İletişim Merkezi</div></div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:20px">
+      <div class="ic-lg" style="background:rgba(255,209,102,.22)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/></svg>
+      </div>
+      <div>
+        <h4>Okulda</h4>
+        <p>Aziz Sancar Anadolu Lisesi <strong>Rehberlik Servisi</strong> ve idare, dijital şiddet vakalarında süreci yönetmekle yükümlüdür. Aile, okul ve (gerekirse) kolluk kuvveti birlikte hareket ettiğinde en hızlı sonuç alınır.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== 9 QUIZ =========== -->
+<section class="sec" id="quiz">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">9</div>
+      <h2>Mini Test: Sen Ne Yapardın?</h2>
+      <p class="sub">Cevabı görmek için sorulara dokun / tıkla.</p>
+    </div>
+
+    <details class="q">
+      <summary>1) Sınıf grubunda bir arkadaşınla dalga geçen bir video paylaşıldı. Ne yaparsın?</summary>
+      <div class="ans">✅ Güldürmeye katılmam, "gülen" emojisi atmam. Arkadaşıma özel mesaj atarım: "Gördüm, yanındayım." Videoyu başkasına iletmem; ekran görüntüsü alır ve rehber öğretmene birlikte gidilebileceğini söylerim.</div>
+    </details>
+    <details class="q">
+      <summary>2) Tanımadığın biri DM'den "Seni merak ettim, fotoğrafını yollar mısın?" yazıyor.</summary>
+      <div class="ans">🚩 <strong>Grooming / sextortion riski</strong> olabilir. Cevap vermeden engelle ve bildir. İsrar ederse ya da tanıdığın çıkarsa bir yetişkine göster.</div>
+    </details>
+    <details class="q">
+      <summary>3) Sınıftan bir grup, "bu challenge'ı yapıp videoyu at, yoksa korkaksın" diyerek sana tehlikeli bir akım öneriyor.</summary>
+      <div class="ans">❌ Bu bir <strong>akran baskısı</strong> ve şiddete özendirmedir. Kendine zarar verebilecek bir akımı yapmak zorunda değilsin. "Ben yokum, sizin de yapmamanızı öneririm." de, gerekirse rehber öğretmene haber ver. Videoyu izlemek ve paylaşmak bile algoritmayı besler — <strong>izleme, paylaşma, bildir</strong>.</div>
+    </details>
+    <details class="q">
+      <summary>4) Biri sana özel bir fotoğraf gönderdi, yakın arkadaşına gösterdin. Sorun olur mu?</summary>
+      <div class="ans">⚠️ Evet — rızasız görüntü paylaşımı <strong>suçtur</strong>. Sadece ilk gönderen değil, <strong>yayan herkes</strong> sorumludur. Fotoğrafı sil ve paylaşımı durdur.</div>
+    </details>
+    <details class="q">
+      <summary>5) Tanıdığın birinin sahte hesabı hakkında yalan bilgiler yayıyor. Ne yaparsın?</summary>
+      <div class="ans">✅ Ekran görüntüsü al, platforma "kimlik taklidi" olarak bildir, hesap sahibine haber ver; gerekirse 155'e suç duyurusunda bulunabilir.</div>
+    </details>
+  </div>
+</section>
+
+<!-- =========== 10 VELİLERE =========== -->
+<section class="sec" id="velilere">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">10</div>
+      <h2>Değerli Velimize: Çocuğunuzun Dijital Dünyasında Yanında Olun</h2>
+      <p class="sub">Yasaklamak değil, birlikte anlamak. Kontrol etmek değil, güven kurmak. Bu bölüm Aziz Sancar Anadolu Lisesi velileri için hazırlandı.</p>
+    </div>
+
+    <div class="callout">
+      <div class="ic-lg" style="background:rgba(255,209,102,.22)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <div>
+        <h4>Ergenlik + Dijital = Yeni bir dil</h4>
+        <p>Sizin gençliğinizde sokakta kurulan akran ilişkileri, bugün WhatsApp gruplarında, Instagram DM'lerinde, Discord sunucularında ve oyun içi seslerde kuruluyor. Dijital dünyadaki baskı, zorbalık ve dışlanma <strong>gerçek acı</strong> veriyor — "sadece ekran, boş ver" demek çocuğu yalnızlaştırır.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:26px">🗣 Nasıl Konuşmalı?</h3>
+    <div class="grid g-2">
+      <div class="card ok">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>Yapın</h3>
+        <ul>
+          <li>"Bugün internette hoşuna giden bir şey var mıydı?" gibi <strong>açık uçlu</strong> sorular sorun.</li>
+          <li>Bir haber, bir video üzerinde beraber konuşun — <em>eleştirel düşünmeyi</em> birlikte öğretin.</li>
+          <li>Siber zorbalık duyduğunuzda önce <strong>dinleyin</strong>, sonra çözüm arayın.</li>
+          <li>Çocuğunuzun <strong>güvenli kişisi</strong> olun — utanmadan, azarlanmadan size gelebilsin.</li>
+        </ul>
+      </div>
+      <div class="card danger">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff8a8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+        </div>
+        <h3>Kaçının</h3>
+        <ul>
+          <li>"Neden hâlâ telefondasın!" ile başlayan sohbetler — <strong>kapıyı kapatır</strong>.</li>
+          <li>Gizlice telefon karıştırmak: güveni bozar, sorunu büyütür.</li>
+          <li>"Başına bu yüzden geldi" suçlaması — failin işine yarar.</li>
+          <li>Ceza olarak telefonu toptan kaldırmak: yardım isteme yolunu da kapatır.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:26px">🚩 Çocuğunuzda Fark Etmeniz Gereken İşaretler</h3>
+    <div class="grid g-3">
+      <div class="card">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M5 21h14"/></svg>
+        </div>
+        <h3>Ani Davranış Değişikliği</h3>
+        <p>İçine kapanma, iştahsızlık, uyku düzeninin bozulması, okula gitmek istememe.</p>
+      </div>
+      <div class="card">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
+        </div>
+        <h3>Telefon Davranışı</h3>
+        <p>Bildirim gelince gerilmek, telefonu birden kapatmak, hesapları aniden silmek.</p>
+      </div>
+      <div class="card">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87"/><path d="M4 21v-2a4 4 0 0 1 3-3.87"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h3>Sosyal Kopuş</h3>
+        <p>Eski arkadaş gruplarıyla aniden görüşmeyi kesmek, okul sonrası etkinliklerden çekilmek.</p>
+      </div>
+      <div class="card">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M5 8h14M5 16h14"/></svg>
+        </div>
+        <h3>Okul Başarısı</h3>
+        <p>Notlarda ani düşüş, dikkat dağınıklığı, öğretmenlerden gelen uyarılar.</p>
+      </div>
+      <div class="card">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 4 4 5-6"/></svg>
+        </div>
+        <h3>Fiziksel Belirtiler</h3>
+        <p>Baş ağrısı, karın ağrısı, tırnak yeme, kendine zarar verme izleri — ihmal etmeyin.</p>
+      </div>
+      <div class="card">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4-8-12a8 8 0 0 1 16 0c0 8-8 12-8 12z"/></svg>
+        </div>
+        <h3>Yeni Yetişkin İlişkileri</h3>
+        <p>Tanımadığınız bir yetişkinle yoğun mesajlaşma, "özel arkadaşım" söylemi — grooming sinyali olabilir.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:26px">🏠 Evde Dijital Sağlık Kültürü</h3>
+    <div class="grid g-3">
+      <div class="card cool">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#34e0c5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3>Dijital Aile Sözleşmesi</h3>
+        <p>Çocuğunuzla birlikte yazın: ekran süreleri, yatak odasında telefon yasağı, hangi hesaplar, ne paylaşılabilir. Tek taraflı değil, <strong>birlikte</strong> hazırlanan kural tutulur.</p>
+      </div>
+      <div class="card cool">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#34e0c5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-12V5l-8-3-8 3v5c0 8 8 12 8 12z"/></svg>
+        </div>
+        <h3>Ebeveyn Kontrolleri</h3>
+        <p>Casusluk değil — süzgeçtir. Aşağıda detaylar.</p>
+      </div>
+      <div class="card cool">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#34e0c5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M12 3v18"/></svg>
+        </div>
+        <h3>Kendiniz Örnek Olun</h3>
+        <p>Yemekte telefon yoksa — herkes için yok. Çocuklar söyleneni değil, gördüklerini yapar.</p>
+      </div>
+      <div class="card cool">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#34e0c5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h3>Uyku ve Ekran</h3>
+        <p>Yatmadan 1 saat önce ekran yok; telefon yatak odası dışında şarja alınsın. Ergenlerde uyku hormonuna doğrudan etki eder.</p>
+      </div>
+      <div class="card cool">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#34e0c5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <h3>Hesapları Birlikte İnceleyin</h3>
+        <p>Ayda bir: "Bana sosyal medya profilini gösterir misin?" Yargılamadan, merakla bakın. Yeni uygulamaları birlikte keşfedin.</p>
+      </div>
+      <div class="card cool">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#34e0c5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+        </div>
+        <h3>Arkadaşlarını Tanıyın</h3>
+        <p>Çocuğunuzun çevrimiçi arkadaşlarını, oyun arkadaşlarını bilmeye çalışın. İlgi, müdahale değildir.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:26px">🛡 Ebeveyn Kontrolleri: Adım Adım Kurulum</h3>
+    <p class="muted" style="margin-top:-4px">Ebeveyn kontrolü casusluk değildir — yaşa uygun olmayan içeriği süzer, ekran süresini sınırlar, riskli uygulamaları engeller. <strong>Çocuğa açıkça söyleyin:</strong> "Güvenliğin için şu ayarları açıyoruz." Gizlice kurulan kontrol, keşfedildiğinde güveni yıkar.</p>
+
+    <div class="grid g-2" style="margin-top:14px">
+
+      <div class="card">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M11 18h2"/></svg>
+        </div>
+        <h3>iPhone / iPad — Ekran Süresi</h3>
+        <p style="font-size:14.5px"><strong>Ayarlar → Ekran Süresi → "Aile Paylaşımı"</strong> aracılığıyla kurun. Sunduğu araçlar:</p>
+        <ul style="font-size:14px">
+          <li><strong>İçerik Kısıtlamaları:</strong> 18+ içerik, şiddet, müstehcen dil filtresi</li>
+          <li><strong>Uygulama Sınırları:</strong> TikTok/Instagram için günlük süre limiti</li>
+          <li><strong>Molasız Zaman:</strong> 22:00–07:00 arası tüm uygulamalar kilitli</li>
+          <li><strong>İletişim Sınırları:</strong> kimlerin arayabileceği/mesaj atabileceği</li>
+          <li><strong>Satın Alma Onayı:</strong> her ücretli uygulama için veli izni</li>
+          <li><strong>Konum Paylaşımı:</strong> Aile Bul'dan karşılıklı</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v16H5z"/><path d="M9 20v-6h6v6"/></svg>
+        </div>
+        <h3>Android — Google Family Link</h3>
+        <p style="font-size:14.5px"><strong>Play Store → "Family Link" uygulaması</strong>. 13 yaş altı çocuklar için zorunlu, 13+ için isteğe bağlı. Özellikler:</p>
+        <ul style="font-size:14px">
+          <li><strong>Uygulama onayı:</strong> her yeni uygulama indirmek için veli onayı</li>
+          <li><strong>Günlük ekran süresi</strong> ve <strong>yatma saati</strong> ayarı</li>
+          <li><strong>Uzaktan kilitleme:</strong> "yemek vakti" tuşu</li>
+          <li><strong>Google arama SafeSearch</strong> zorunlu aktif</li>
+          <li><strong>YouTube Kids</strong> yönlendirmesi (13 altı için)</li>
+          <li><strong>Konum takibi</strong> — karşılıklı ve şeffaf</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>Windows 11 — Microsoft Family Safety</h3>
+        <p style="font-size:14.5px"><strong>account.microsoft.com/family</strong> üzerinden ya da mobil uygulamadan.</p>
+        <ul style="font-size:14px">
+          <li>Web sitesi filtreleri (porn/şiddet/kumar kategorileri)</li>
+          <li>Xbox/Windows oyunlarında yaş sınırı zorlaması</li>
+          <li>Ekran süresi raporları haftalık e-postayla</li>
+          <li>Uygulama ve oyun harcaması onayı</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0 1 20 0M6 12a6 6 0 0 1 12 0M10 12a2 2 0 0 1 4 0"/><circle cx="12" cy="12" r="1"/></svg>
+        </div>
+        <h3>Modem / Wi-Fi Seviyesinde Filtreleme</h3>
+        <p style="font-size:14.5px">Tek bir ayarla evdeki tüm cihazlar etkilenir.</p>
+        <ul style="font-size:14px">
+          <li><strong>BTK — Güvenli İnternet:</strong> operatör çağır, "Aile Profili" talep et (ücretsiz)</li>
+          <li><strong>DNS değiştirme:</strong> modemde DNS'i <code>185.228.168.168</code> (CleanBrowsing Aile) yap — porn/şiddet filtrelenir</li>
+          <li><strong>Modem arayüzü:</strong> "Ebeveyn Denetimi" sekmesinden cihaz bazlı saat sınırı</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m10 15 5-3-5-3z"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+        </div>
+        <h3>YouTube / TikTok / Instagram İçi Ayarlar</h3>
+        <ul style="font-size:14px">
+          <li><strong>YouTube:</strong> Ayarlar → Genel → "Kısıtlı Mod"u aç</li>
+          <li><strong>TikTok:</strong> Ayarlar → "Aile Eşleştirme" — hesabı velinin hesabına bağlar, DM'leri kısıtlar, arama filtresi koyar</li>
+          <li><strong>Instagram:</strong> Ayarlar → "Ebeveyn Denetimi" — süre limiti + bildirimler + takip listesi görünürlüğü</li>
+          <li><strong>Steam / Epic / PlayStation:</strong> Oyun platformlarında "Aile görünümü" aktif edin — 18+ oyun engeli</li>
+        </ul>
+      </div>
+
+      <div class="card danger">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff8a8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+        </div>
+        <h3>Neyi YAPMAMALI</h3>
+        <ul style="font-size:14px">
+          <li><strong>Gizli casus yazılım kurmayın</strong> (mSpy vb.) — hukuki sorun doğurur, güveni yok eder</li>
+          <li>Mesajlarını gizli okumak — bulunduğunda ilişki biter</li>
+          <li>Bütün hesaplarını şifreyle ele geçirmek — tam tersi etki yaratır</li>
+          <li>Kontrolleri "ceza" olarak açıp kapatmak — tutarsızlık riski büyütür</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="callout ok" style="margin-top:18px">
+      <div class="ic-lg" style="background:rgba(52,211,153,.18)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+      <div>
+        <h4>Yaşa göre kademeli</h4>
+        <p>14 yaşında sıkı filtre → 16 yaşında ayarlar gevşer → 18 yaşında çocuk tamamen kontrolü alır. <strong>Ebeveyn kontrolü geçici bir destek</strong>tir, kalıcı bir gözetim değil. Amaç, çocuğun kendi dijital kaslarını geliştirmesi.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:26px">🆘 Ne Zaman Profesyonel Destek?</h3>
+    <div class="callout danger">
+      <div class="ic-lg" style="background:rgba(255,107,107,.18)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff6b6b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div>
+        <h4>Acilen yardım almanız gereken durumlar</h4>
+        <ul style="margin:6px 0 0">
+          <li>Çocuğunuz kendine zarar vermekten, intihardan veya "yaşamak istemiyorum"dan söz ediyorsa</li>
+          <li>Çıplak fotoğraflarının yayıldığından veya şantaj aldığından söz ediyorsa</li>
+          <li>Bir yetişkinin çocuğunuza cinsel içerikli yaklaştığını öğrendiyseniz</li>
+          <li>Haftalarca süren çökkünlük, yeme/uyku bozuklukları devam ediyorsa</li>
+        </ul>
+        <p style="margin-top:8px">→ Vakit kaybetmeden <strong>112 / 155</strong>, okul rehber öğretmeni, aile hekimi veya çocuk-ergen ruh sağlığı uzmanına başvurun. Gecikmek, durumu büyütür.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:26px">📚 Velilere Önerilen Kaynaklar</h3>
+    <div class="grid g-2">
+      <div class="card">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+        </div>
+        <h3>Resmi kurum rehberleri</h3>
+        <p><a href="https://www.guvenliweb.org.tr/" target="_blank" rel="noopener">guvenliweb.org.tr</a> · <a href="https://www.guvenlicocuk.org.tr/" target="_blank" rel="noopener">guvenlicocuk.org.tr</a> · <a href="https://www.ebeveyn.gov.tr/" target="_blank" rel="noopener">ebeveyn.gov.tr</a> — BTK/MEB ortak yayınları.</p>
+      </div>
+      <div class="card">
+        <div class="ic">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9cc0ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <h3>Okul iletişimi</h3>
+        <p>Rehberlik Servisi ile doğrudan görüşme randevusu alın. Aziz Sancar Anadolu Lisesi → <a href="https://azizsancaranadolu.meb.k12.tr/" target="_blank" rel="noopener">azizsancaranadolu.meb.k12.tr</a></p>
+      </div>
+    </div>
+
+    <div class="callout ok" style="margin-top:20px">
+      <div class="ic-lg" style="background:rgba(52,211,153,.18)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div>
+        <h4>Sevgili Veli</h4>
+        <p>Çocuğunuzun dijital hayatını paylaşmak için teknolojiyi en iyi bilen siz olmak zorunda değilsiniz. <strong>Merak etmek, dinlemek, yargılamamak</strong> — bu üç şey bütün araçlardan daha güçlüdür.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== 11 KAYNAKÇA =========== -->
+<section class="sec" id="kaynakca">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">11</div>
+      <h2>Kaynakça ve Yasal Dayanak</h2>
+      <p class="sub">Bu kılavuzdaki istatistikler, hukuki atıflar ve öneriler aşağıdaki resmi kurum yayınlarına, akademik çalışmalara ve yasal mevzuata dayanmaktadır.</p>
+    </div>
+
+    <ol class="refs">
+      <li id="k1"><strong>TÜİK — Hanehalkı Bilişim Teknolojileri Kullanım Araştırması, 2024.</strong> 16–74 yaş internet kullanımı %88,8. <a href="https://data.tuik.gov.tr/" target="_blank" rel="noopener">data.tuik.gov.tr</a></li>
+      <li id="k2"><strong>TÜİK — Çocuklarda BT Kullanım Araştırması, 2021.</strong> 6–15 yaş %82,7 internet kullanıyor. <a href="https://data.tuik.gov.tr/" target="_blank" rel="noopener">tuik.gov.tr</a></li>
+      <li id="k3"><strong>UNICEF (2019) — Cyberbullying Poll.</strong> 30 ülkede gençlerin ≈%33'ü siber zorbalığa maruz. <a href="https://www.unicef.org/press-releases/unicef-poll-more-third-young-people-30-countries-report-being-victim-online-bullying" target="_blank" rel="noopener">unicef.org</a></li>
+      <li id="k4"><strong>EU Kids Online 2020 (LSE).</strong> 19 Avrupa ülkesinde gençlerin çevrimiçi riskleri. <a href="https://www.lse.ac.uk/media-and-communications/research/research-projects/eu-kids-online" target="_blank" rel="noopener">lse.ac.uk</a></li>
+      <li id="k5"><strong>DataReportal — Digital 2024: Türkiye.</strong> Günlük sosyal medya ortalaması 2 sa 56 dk. <a href="https://datareportal.com/reports/digital-2024-turkey" target="_blank" rel="noopener">datareportal.com</a></li>
+      <li id="k6"><strong>RTÜK — Medya Okuryazarlığı araştırmaları.</strong> <a href="https://www.rtuk.gov.tr/" target="_blank" rel="noopener">rtuk.gov.tr</a></li>
+      <li id="k7"><strong>Topcu & Erdur-Baker (Hacettepe/ODTÜ).</strong> Türk ergenlerde siber zorbalık çalışmaları, <em>J. of Adolescence</em>.</li>
+      <li id="k8"><strong>WHO — Preventing Violence Against Children, 2020.</strong> Çevrimiçi şiddet ve ruh sağlığı. <a href="https://www.who.int/publications/i/item/9789240004191" target="_blank" rel="noopener">who.int</a></li>
+      <li id="k9"><strong>5237 sayılı Türk Ceza Kanunu.</strong> m.103 (çocuk istismarı), m.125 (hakaret), m.134 (özel hayat), m.135–136 (kişisel veri), m.216 (nefret), m.226 (müstehcenlik). <a href="https://www.mevzuat.gov.tr/mevzuatmetin/1.5.5237.pdf" target="_blank" rel="noopener">mevzuat.gov.tr · TCK</a></li>
+      <li id="k10"><strong>5651 sayılı İnternet Kanunu</strong> + <strong>6284</strong> (Ailenin Korunması) + <strong>6698</strong> (KVKK). <a href="https://www.mevzuat.gov.tr/" target="_blank" rel="noopener">mevzuat.gov.tr</a></li>
+      <li id="k11"><strong>Resmi yardım:</strong> <a href="https://www.ihbarweb.org.tr/" target="_blank" rel="noopener">ihbarweb.org.tr</a> · <a href="https://www.guvenliweb.org.tr/" target="_blank" rel="noopener">guvenliweb.org.tr</a> · <a href="https://www.egm.gov.tr/siber" target="_blank" rel="noopener">egm.gov.tr/siber</a> · <a href="https://kades.icisleri.gov.tr/" target="_blank" rel="noopener">KADES</a> · ALO 183</li>
+    </ol>
+
+    <p class="muted" style="margin-top:16px;font-size:13px">
+      Son erişim: Nisan 2026. Bu kılavuz bilgilendirme amaçlıdır; hukuki/psikolojik uzman desteğin yerini tutmaz.
+    </p>
+  </div>
+</section>
+
+<!-- =========== FINAL =========== -->
+<section class="sec">
+  <div class="wrap max-700 center">
+    <h2 style="font-size:clamp(22px,3vw,32px);margin-bottom:12px">Klavyen Sessizse <em>Sen</em> de Sessizsin.</h2>
+    <p class="muted" style="font-size:16px">
+      Dijital okuryazarlık; "internet kullanmayı bilmek" değildir. Kendini ve başkasını
+      ekran arkasından koruyabilmek, "şaka" ile "şiddet"in arasındaki çizgiyi görebilmek,
+      susarak değil bildirerek tepki verebilmektir.
+    </p>
+    <p style="font-size:17px"><strong>Ekran bir perde değil, aynadır.</strong> Orada gösterdiğin karakter, gerçek karakterindir.</p>
+    <p class="muted">Ve birine destek olmak çoğu zaman tek bir cümleye bakar: <em>"Yanındayım."</em></p>
+    <a href="#nedir" class="btn primary btn-lg" style="margin-top:12px">Başa Dön</a>
+  </div>
+</section>
+
+</main>
+
+<!-- =========== FOOTER =========== -->
+<footer>
+  <div class="wrap">
+    <p class="muted" style="max-width:700px;margin:0 auto">
+      Bu kılavuz bilgilendirme amaçlıdır, hukuki veya psikolojik danışmanlık yerine geçmez.
+      Acil durumlarda <strong>155 / 112 / 183</strong>'ü arayın ya da bir yetişkine başvurun.
+    </p>
+    <a class="sig" href="https://azizsancaranadolu.meb.k12.tr/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
+      <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M32 4 56 14v18c0 14-10 24-24 28C18 56 8 46 8 32V14Z" fill="url(#lg-s)"/>
+      </svg>
+      <span><strong>Aziz Sancar Anadolu Lisesi</strong> · azizsancaranadolu.meb.k12.tr</span>
+    </a>
+    <p class="muted" style="margin-top:14px">Dijital Okuryazarlık Kılavuzu · Yazdırmak için Ctrl + P · © 2025–2026 Dönemi</p>
+  </div>
+</footer>
+
+</body>
+</html>
