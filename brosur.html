@@ -99,15 +99,15 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
   background:linear-gradient(90deg, var(--navy) 0%, var(--brand) 45%, var(--teal) 100%);
   flex:none;
 }
-/* Köşe dekor */
+/* Köşe dekor — geometrik L şekli */
 .cover::after{
   content:"";
   position:absolute;
-  bottom:-18mm;right:-18mm;
-  width:52mm;height:52mm;
-  border-radius:50%;
-  background:linear-gradient(135deg,rgba(198,154,43,.18),rgba(209,77,115,.12));
-  border:2pt solid rgba(198,154,43,.25);
+  bottom:6mm;right:6mm;
+  width:14mm;height:14mm;
+  border-bottom:3pt solid var(--brand);
+  border-right:3pt solid var(--teal);
+  opacity:.35;
 }
 .cover-body{
   padding:0 8mm;
