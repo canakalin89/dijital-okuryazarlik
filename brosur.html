@@ -81,34 +81,63 @@ ul li, ol li{margin:1.2mm 0;font-size:9pt;line-height:1.35}
 ul.bul li{padding-left:10px;position:relative}
 ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-size:10pt;line-height:1.1;top:0}
 
-/* ---------- COVER (front cover, right panel of side 1) ---------- */
+/* ---------- COVER (front cover) — açık zemin, renkli aksan ---------- */
 .cover{
-  background:
-    radial-gradient(closest-side at 80% 20%, rgba(198,154,43,.35), transparent 65%),
-    radial-gradient(closest-side at 20% 80%, rgba(54,97,201,.28), transparent 60%),
-    linear-gradient(180deg, var(--navy) 0%, #0a142e 100%);
-  color:#fff;
-  padding:12mm 9mm;
+  background:#fff;
+  color:var(--navy);
+  padding:0 0 8mm;
   display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;
+  overflow:hidden;
+}
+/* Renkli üst şerit */
+.cover::before{
+  content:"";
+  display:block;
+  width:100%;
+  height:14mm;
+  background:linear-gradient(90deg, var(--navy) 0%, var(--brand) 45%, var(--teal) 100%);
+  flex:none;
+}
+/* Köşe dekor */
+.cover::after{
+  content:"";
+  position:absolute;
+  bottom:-18mm;right:-18mm;
+  width:52mm;height:52mm;
+  border-radius:50%;
+  background:linear-gradient(135deg,rgba(198,154,43,.18),rgba(209,77,115,.12));
+  border:2pt solid rgba(198,154,43,.25);
+}
+.cover-body{
+  padding:0 8mm;
+  display:flex;flex-direction:column;flex:1;justify-content:space-between;
 }
 .cover .school-tag{
-  font-size:8pt;letter-spacing:3pt;color:var(--gold-soft);text-transform:uppercase;font-weight:700;
-  display:flex;align-items:center;gap:8px;
+  font-size:7.5pt;letter-spacing:2pt;color:#fff;text-transform:uppercase;font-weight:700;
+  padding:3mm 8mm 0;
 }
 .cover h1{
-  color:#fff;font-size:26pt;margin-top:10mm;
+  color:var(--navy);font-size:22pt;margin-top:5mm;line-height:1.1;
 }
-.cover h1 em{color:var(--gold-soft)}
-.cover .sub{color:#c8cef0;font-size:10pt;margin-top:4mm;line-height:1.4}
+.cover h1 em{
+  color:var(--brand);font-style:normal;
+  background:linear-gradient(90deg,var(--brand),var(--teal));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.cover .sub{color:#555;font-size:9.5pt;margin-top:3mm;line-height:1.45}
 .cover .pill{
-  display:inline-block;padding:3pt 9pt;border-radius:999pt;
-  font-size:7.5pt;letter-spacing:.6pt;font-weight:700;
-  background:rgba(255,255,255,.1);color:#fff;border:1pt solid rgba(255,255,255,.25);
-  margin-top:8mm;
+  display:inline-block;padding:3pt 10pt;border-radius:999pt;
+  font-size:7.5pt;letter-spacing:.5pt;font-weight:700;
+  background:linear-gradient(90deg,var(--brand),var(--teal));
+  color:#fff;border:none;
+  margin-top:5mm;align-self:flex-start;
 }
-.cover .art{align-self:center;margin:3mm 0}
+.cover .art{align-self:center;margin:2mm 0}
 .cover .foot{
-  font-size:7.5pt;color:#9aa3c7;text-align:center;border-top:1pt solid rgba(255,255,255,.18);padding-top:4mm;letter-spacing:.8pt;
+  font-size:7pt;color:#888;text-align:center;
+  border-top:1pt solid #e0e4ef;padding-top:3mm;letter-spacing:.8pt;
+  margin:0 8mm;
 }
 
 /* ---------- BACK COVER (left panel of side 1) ---------- */
@@ -255,52 +284,21 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
 <body>
 
 <div class="print-hint">
-  <strong>Tek kağıt broşür</strong> · Baskı ayarları: <kbd>Ctrl + P</kbd> → Düzen: <strong>Yatay (Landscape)</strong> · Kenar boşlukları: <strong>Yok (None)</strong> · Çift taraflı: <strong>Kısa kenardan çevir</strong> (Short edge). Dikey iki kat olarak katlayın.
+  <strong>Tek kağıt broşür</strong> — Baskı: <kbd>Ctrl+P</kbd> · Düzen: <strong>Yatay</strong> · Kenar boşluğu: <strong>Yok</strong> · Çift taraflı: <strong>Kısa kenardan çevir</strong> (Short edge).
+  &nbsp;|&nbsp; <strong>Katlama (3 adım):</strong>
+  &nbsp;① Kağıdı masaya koy, <em>Dış Yüz yukarıda</em> (Arka Kapak solda, Ön Kapak sağda).
+  &nbsp;② Sol paneli (Arka Kapak) <strong>kendinizden uzağa</strong> katlayın → orta panelin arkasına geçsin.
+  &nbsp;③ Sağ paneli (Ön Kapak) <strong>kendinize doğru</strong> katlayın → öne gelsin.
+  Sonuç: Ön Kapak önde · Arka Kapak arkada ✓ (Z-fold / Akordeon)
 </div>
 
-<div class="sheet-title">▸ DIŞ YÜZ · Sol=Arka Kapak · Orta=İç Kapak · Sağ=ÖN KAPAK</div>
+<div class="sheet-title">▸ DIŞ YÜZ (Z-fold) · Sol=Arka Kapak · Orta=İç Kapak · Sağ=ÖN KAPAK</div>
 
 <!-- ================================= PAGE 1 (OUTSIDE) ================================= -->
 <section class="sheet">
 
-  <!-- PANEL 1: ARKA KAPAK -->
-  <div class="panel back">
-    <span class="plabel">Arka Kapak</span>
-    <h2>☎ Yardım İçin Ara</h2>
-    <div class="phone-row">
-      <div class="phone-box"><div class="n">112</div><div class="l">Polis / Acil — tehdit, şantaj veya can tehlikesi</div></div>
-      <div class="phone-box"><div class="n">183</div><div class="l">Aile ve Çocuk — ücretsiz danışma hattı</div></div>
-      <div class="phone-box"><div class="n">KADES</div><div class="l">Telefonuna indir, tehlikede anında yardım</div></div>
-    </div>
-
-    <div class="phone-full">
-      <div class="n">ihbarweb<br/>.org.tr</div>
-      <div class="l">İnternette zararlı içerik gördüysen buradan bildir</div>
-    </div>
-    <div class="phone-full" style="background:#3a1e4a">
-      <div class="n">siber.pol.tr</div>
-      <div class="l">Siber suçu polise buradan da bildirebilirsin</div>
-    </div>
-
-    <h2 style="margin-top:3mm;color:var(--teal)">🏫 Okula Gel</h2>
-    <p style="font-size:8.5pt;margin-bottom:2mm">
-      İnternette kötü bir şeyle karşılaştıysan okuldaki <strong>rehber öğretmene</strong> git. İstersen adını söylemeden de anlatabilirsin.
-    </p>
-    <p style="font-size:8pt">Herhangi bir <strong>rehber öğretmene</strong> gidebilirsin. İstersen adını söylemeden de anlatabilirsin.</p>
-
-    <div class="footer-brand">
-      <div style="display:flex;align-items:center;justify-content:center;gap:3mm;margin-bottom:2mm">
-        <img src="logo.png" alt="Logo" style="width:10mm;height:10mm;object-fit:contain"/>
-        <div class="name">Aziz Sancar Anadolu Lisesi</div>
-      </div>
-      <div class="url">azizsancaranadolu.meb.k12.tr</div>
-      <div class="small">Bilgilendirme amaçlıdır · 2025–2026 · Broşürü saklayın</div>
-    </div>
-  </div>
-
-  <!-- PANEL 2: İÇ KAPAK (Ebeveyn kontrolleri) -->
+  <!-- PANEL 1: İÇ KAPAK (Ebeveyn kontrolleri) -->
   <div class="panel flap">
-    <span class="plabel">İç Kapak</span>
     <h2>👨‍👩‍👧 Velilere: Ne Yapmalıyım?</h2>
     <p class="intro">
       Önce çocuğunuzla konuşun: <strong>"Seni korumak istiyorum, bu yüzden yapıyorum."</strong>
@@ -334,113 +332,128 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
     </div>
   </div>
 
+  <!-- PANEL 2: ARKA KAPAK -->
+  <div class="panel back">
+    <h2>☎ Yardım İçin Ara</h2>
+    <div class="phone-row">
+      <div class="phone-box"><div class="n">112</div><div class="l">Polis / Acil — tehdit, şantaj veya can tehlikesi</div></div>
+      <div class="phone-box"><div class="n">183</div><div class="l">Aile ve Çocuk — ücretsiz danışma hattı</div></div>
+      <div class="phone-box"><div class="n">KADES</div><div class="l">Telefonuna indir, tehlikede anında yardım</div></div>
+    </div>
+
+    <div class="phone-full">
+      <div class="n">ihbarweb<br/>.org.tr</div>
+      <div class="l">İnternette zararlı içerik gördüysen buradan bildir</div>
+    </div>
+    <div class="phone-full" style="background:#3a1e4a">
+      <div class="n">siber.pol.tr</div>
+      <div class="l">Siber suçu polise buradan da bildirebilirsin</div>
+    </div>
+
+    <h2 style="margin-top:3mm;color:var(--teal)">🏫 Okula Gel</h2>
+    <p style="font-size:8.5pt;margin-bottom:2mm">
+      İnternette kötü bir şeyle karşılaştıysan okuldaki <strong>rehber öğretmene</strong> git. İstersen adını söylemeden de anlatabilirsin.
+    </p>
+    <p style="font-size:8pt">Herhangi bir <strong>rehber öğretmene</strong> gidebilirsin. İstersen adını söylemeden de anlatabilirsin.</p>
+
+    <div style="display:flex;flex-direction:column;align-items:center;gap:1.5mm;margin-top:3mm;padding:2mm;border:1.5pt solid rgba(54,97,201,.2);border-radius:2mm;background:rgba(54,97,201,.03)">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&color=0e1a3e&bgcolor=ffffff&data=https://azizsancaranadolu.meb.k12.tr/icerikler/ekrandangelensiddetdesiddettirdijitalokuryazarlikkilavuzumuzyayinda_17388500.html"
+           alt="QR Kod" style="width:32mm;height:32mm;display:block"/>
+      <div style="font-size:7pt;color:#666;text-align:center">📱 Dijital kılavuz için tara</div>
+    </div>
+
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;justify-content:center;gap:3mm;margin-bottom:2mm">
+        <img src="logo.png" alt="Logo" style="width:10mm;height:10mm;object-fit:contain"/>
+        <div class="name">Aziz Sancar Anadolu Lisesi</div>
+      </div>
+      <div class="url">azizsancaranadolu.meb.k12.tr</div>
+      <div class="small">Bilgilendirme amaçlıdır · 2025–2026 · Broşürü saklayın</div>
+    </div>
+  </div>
+
   <!-- PANEL 3: ÖN KAPAK -->
   <div class="panel cover">
-    <span class="plabel" style="color:rgba(255,255,255,.35)">Ön Kapak</span>
-    <div class="school-tag">
-      AZİZ SANCAR ANADOLU LİSESİ
-    </div>
+    <!-- Şerit üzerinde okul adı (::before pseudo-elem ile oluşan renkli band) -->
+    <div class="school-tag">AZİZ SANCAR ANADOLU LİSESİ</div>
 
-    <div style="display:flex;align-items:center;gap:6mm;margin-top:4mm">
-      <img src="logo.png" alt="Aziz Sancar Anadolu Lisesi Logo"
-           style="width:28mm;height:28mm;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))"/>
+    <div class="cover-body">
       <div>
-        <h1 style="font-size:22pt">Dijital<br/>Okuryazarlık</h1>
-        <div class="sub" style="font-size:9pt">Ekrandaki hayat, <em>gerçek hayattır.</em></div>
+        <div style="display:flex;align-items:center;gap:5mm;margin-top:4mm">
+          <img src="logo.png" alt="Logo"
+               style="width:22mm;height:22mm;object-fit:contain;flex:none"/>
+          <div>
+            <div style="font-size:8.5pt;font-weight:800;color:var(--brand);letter-spacing:.5pt;text-transform:uppercase;line-height:1.3">Aziz Sancar<br/>Anadolu Lisesi</div>
+            <h1 style="font-size:18pt;margin-top:2mm">Dijital<br/><em>Okuryazarlık</em><br/><em>Kılavuzu</em></h1>
+            <div class="sub">Ekrandaki hayat, <strong>gerçek hayattır.</strong></div>
+          </div>
+        </div>
+
+        <span class="pill">Öğrenciler · Veliler · Öğretmenler</span>
+
+        <!-- QR KOD — büyük, merkezi -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2mm;margin-top:5mm;padding:3mm;border:2pt solid rgba(54,97,201,.2);border-radius:3mm;background:rgba(54,97,201,.03)">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&color=0e1a3e&bgcolor=ffffff&data=https://azizsancaranadolu.meb.k12.tr/icerikler/ekrandangelensiddetdesiddettirdijitalokuryazarlikkilavuzumuzyayinda_17388500.html"
+               alt="QR Kod" style="width:48mm;height:48mm;display:block"/>
+          <div style="text-align:center">
+            <div style="font-size:8pt;font-weight:800;color:var(--navy)">📱 Daha Detaylı Bilgi İçin</div>
+            <div style="font-size:7pt;color:#666;margin-top:1mm">Kameranı tut — kılavuzun tamamı açılır</div>
+          </div>
+        </div>
       </div>
+
+      <div class="foot">DİJİTAL ŞİDDETE KARŞI · 2025 – 2026</div>
     </div>
-
-    <span class="pill" style="margin-top:5mm">Öğrenciler · Veliler · Öğretmenler</span>
-
-    <div class="art" style="text-align:center;margin:4mm 0 0">
-      <svg width="60mm" height="52mm" viewBox="0 0 180 155">
-        <defs>
-          <linearGradient id="cs" x1="0" x2="1" y1="0" y2="1">
-            <stop offset="0" stop-color="#e7c96a"/><stop offset="1" stop-color="#d14d73"/>
-          </linearGradient>
-          <linearGradient id="ph" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0" stop-color="#2a3a6e"/><stop offset="1" stop-color="#0e1a3e"/>
-          </linearGradient>
-        </defs>
-        <path d="M90 10 L145 28 V80 C145 118 122 140 90 152 C58 140 35 118 35 80 V28 Z"
-              fill="none" stroke="url(#cs)" stroke-width="2" stroke-dasharray="4 5" opacity=".6"/>
-        <g transform="translate(62 30)">
-          <rect x="0" y="0" width="52" height="95" rx="9" fill="url(#ph)" stroke="rgba(255,255,255,.2)"/>
-          <rect x="3" y="5" width="46" height="78" rx="5" fill="#0a142e"/>
-          <rect x="18" y="8" width="14" height="3" rx="1.5" fill="#2a3a6e"/>
-          <g transform="translate(12 45)">
-            <rect x="0" y="7" width="26" height="20" rx="3" fill="url(#cs)"/>
-            <path d="M4 7v-2a9 9 0 0 1 18 0v2" fill="none" stroke="#fff" stroke-width="2"/>
-            <circle cx="13" cy="17" r="2" fill="#0e1a3e"/>
-          </g>
-        </g>
-        <g transform="translate(125 38)">
-          <circle cx="0" cy="0" r="16" fill="#fff" opacity=".12"/>
-          <path d="M0 7 C -11 -2 -11 -14 -4 -14 C -1 -14 0 -11 0 -10 C 0 -11 1 -14 4 -14 C 11 -14 11 -2 0 7 Z" fill="#d14d73"/>
-        </g>
-        <g transform="translate(48 145)">
-          <circle cx="0" cy="0" r="13" fill="#fff" opacity=".12"/>
-          <path d="M-5 0 L -1 4 L 6 -4" fill="none" stroke="#e7c96a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </g>
-      </svg>
-    </div>
-
-    <div class="foot">DİJİTAL ŞİDDETE KARŞI · 2025 – 2026</div>
   </div>
 
 </section>
 
-<div class="sheet-title">▸ İÇ YÜZ · Soldan sağa okuyun (açıldığında görünen 3 kolon)</div>
+<div class="sheet-title">▸ İÇ YÜZ · HTML'de ters sıra (baskı ayna etkisi): Sol=Veliler · Orta=5 Adım · Sağ=Dijital Şiddet → Katlayınca doğru okunur</div>
 
 <!-- ================================= PAGE 2 (INSIDE) ================================= -->
 <section class="sheet">
 
-  <!-- PANEL 4: Dijital Şiddet + Türler -->
+  <!-- PANEL 4 (fiziksel 1. kolon — baskıda ayna etkisiyle soldan ilk açılan): Velilere + Koruma -->
   <div class="panel inside">
-    <span class="plabel">1 / 3</span>
-    <h2>Dijital Şiddet Nedir?</h2>
-    <p>
-      Birini internette, telefonda ya da oyunda incitmek, korkutmak, aşağılamak — bunların hepsi <strong>dijital şiddettir</strong>.
-      "Şakaydı", "sildim geçti" demek bunu değiştirmez.
+    <h2>Velilere — 4 Temel Kural</h2>
+
+    <div class="ptip">
+      <h4>1 · Sormadan Önce Dinleyin</h4>
+      <p>"Neden hâlâ telefondasın?" yerine "Bugün ne yaptın?" diye sorun. Çocuğunuz sorgulanmadığında daha çok anlatır.</p>
+    </div>
+    <div class="ptip">
+      <h4>2 · İlk Başvurduğu Siz Olun</h4>
+      <p>Kötü bir şey yaşadığında aklına ilk sizin gelmenizi isteyin. Bunun için: ne anlatırsa anlatsın önce dinleyin, yargılamayın. Çözümü sonra birlikte bulun.</p>
+    </div>
+    <div class="ptip">
+      <h4>3 · Kuralları Birlikte Koyun</h4>
+      <p>Günde kaç saat telefon, hangi saatlerde yok, hangi uygulamalar açık — bunları <strong>çocuğunuzla birlikte</strong> konuşarak belirleyin. Tek taraflı dayatılan kural çoğunlukla çiğnenir.</p>
+    </div>
+    <div class="ptip">
+      <h4>4 · Siz de Uygulayın</h4>
+      <p>Yemekte telefon yasak dediyseniz siz de koymayın. Çocuklar söyleneni değil <em>gördüklerini</em> yapar.</p>
+    </div>
+
+    <h3 style="margin-top:2mm;color:var(--pink)">🔐 Kendinizi Koruyun</h3>
+    <ul class="bul">
+      <li>Her uygulama için farklı şifre kullan</li>
+      <li>Profilini herkese değil, sadece tanıdıklarına aç</li>
+      <li>Konumunu paylaşma — kim nerede olduğunu bilmesin</li>
+      <li>Tanımadığın kişilerin takip isteğini kabul etme</li>
+      <li>Bir şey paylaşmadan önce sor: <strong>Doğru mu? Başkasını incitir mi?</strong></li>
+    </ul>
+
+    <div class="note warn">
+      <strong>Hemen ara!</strong> Çocuğunuz kendine zarar vermekten, ölmek istemekten ya da cinsel şantajdan bahsettiyse <strong>112</strong>'yi arayın. Beklemeyin.
+    </div>
+
+    <p style="text-align:center;margin-top:3mm;font-size:9pt;color:var(--navy);font-weight:700">
+      Birine "Yanındayım" demek<br/>çoğu zaman yeterlidir.
     </p>
-
-    <h3 style="color:var(--pink);margin-top:3mm">En Sık Karşılaşılan 6 Tür</h3>
-
-    <div class="vmini">
-      <div class="vrow"><div class="vi p">💬</div><div class="vt">
-        <div class="vh">Siber Zorbalık</div>
-        <div class="vd">Grupta veya özel mesajda aşağılamak, dalga geçmek, herkesin içinde rezil etmek.</div>
-      </div></div>
-      <div class="vrow"><div class="vi b">📍</div><div class="vt">
-        <div class="vh">Kişisel Bilgi Yayma (Doxxing)</div>
-        <div class="vd">Birisinin ev adresini, telefon numarasını ya da aile bilgilerini izinsiz internete dökmek. Suçtur.</div>
-      </div></div>
-      <div class="vrow"><div class="vi p">📸</div><div class="vt">
-        <div class="vh">Özel Görüntü Yayma</div>
-        <div class="vd">Birisinin özel fotoğraf ya da videosunu, o kişi istemeden başkasına göndermek. Bunu yapan herkes suçludur.</div>
-      </div></div>
-      <div class="vrow"><div class="vi">🧵</div><div class="vt">
-        <div class="vh">Foto/Video ile Şantaj</div>
-        <div class="vd">"Fotoğraf gönder yoksa yayarım" demek. Para ödeme, ekran görüntüsünü sakla, hemen bildir.</div>
-      </div></div>
-      <div class="vrow"><div class="vi t">🎭</div><div class="vt">
-        <div class="vh">Tanımadık Biriyle Yakınlaşma</div>
-        <div class="vd">Yaşını gizleyen bir yetişkin önce arkadaş gibi davranır, sonra uygunsuz şeyler ister. "Ailene söyleme" diyorsa hemen uzaklaş.</div>
-      </div></div>
-      <div class="vrow"><div class="vi b">❤️‍🩹</div><div class="vt">
-        <div class="vh">Dijital Flört Şiddeti</div>
-        <div class="vd">Sevgilinin şifreni istemesi, nerede olduğunu takip etmesi, kiminle konuşacağını dikte etmesi — bu sevgi değil, kontrol.</div>
-      </div></div>
-    </div>
-
-    <div class="note">
-      <strong>Bilgi:</strong> İnternette kimse gerçekten "anonim" değildir. Paylaşılan her şey iz bırakır.
-    </div>
   </div>
 
   <!-- PANEL 5: 5 Adım + Uyarı İşaretleri -->
   <div class="panel inside">
-    <span class="plabel">2 / 3</span>
     <h2>Kötü Bir Şey Olursa — 5 Adım</h2>
 
     <div class="steps-mini">
@@ -481,44 +494,46 @@ ul.bul li::before{content:"▸";color:var(--gold);position:absolute;left:0;font-
     </div>
   </div>
 
-  <!-- PANEL 6: Velilere + Koruma + Son Söz -->
+  <!-- PANEL 6 (fiziksel 3. kolon — baskıda ayna etkisiyle sağdan son açılan): Dijital Şiddet + Türler -->
   <div class="panel inside">
-    <span class="plabel">3 / 3</span>
-    <h2>Velilere — 4 Temel Kural</h2>
-
-    <div class="ptip">
-      <h4>1 · Sormadan Önce Dinleyin</h4>
-      <p>"Neden hâlâ telefondasın?" yerine "Bugün ne yaptın?" diye sorun. Çocuğunuz sorgulanmadığında daha çok anlatır.</p>
-    </div>
-    <div class="ptip">
-      <h4>2 · İlk Başvurduğu Siz Olun</h4>
-      <p>Kötü bir şey yaşadığında aklına ilk sizin gelmenizi isteyin. Bunun için: ne anlatırsa anlatsın önce dinleyin, yargılamayın. Çözümü sonra birlikte bulun.</p>
-    </div>
-    <div class="ptip">
-      <h4>3 · Kuralları Birlikte Koyun</h4>
-      <p>Günde kaç saat telefon, hangi saatlerde yok, hangi uygulamalar açık — bunları <strong>çocuğunuzla birlikte</strong> konuşarak belirleyin. Tek taraflı dayatılan kural çoğunlukla çiğnenir.</p>
-    </div>
-    <div class="ptip">
-      <h4>4 · Siz de Uygulayın</h4>
-      <p>Yemekte telefon yasak dediyseniz siz de koymayın. Çocuklar söyleneni değil <em>gördüklerini</em> yapar.</p>
-    </div>
-
-    <h3 style="margin-top:2mm;color:var(--pink)">🔐 Kendinizi Koruyun</h3>
-    <ul class="bul">
-      <li>Her uygulama için farklı şifre kullan</li>
-      <li>Profilini herkese değil, sadece tanıdıklarına aç</li>
-      <li>Konumunu paylaşma — kim nerede olduğunu bilmesin</li>
-      <li>Tanımadığın kişilerin takip isteğini kabul etme</li>
-      <li>Bir şey paylaşmadan önce sor: <strong>Doğru mu? Başkasını incitir mi?</strong></li>
-    </ul>
-
-    <div class="note warn">
-      <strong>Hemen ara!</strong> Çocuğunuz kendine zarar vermekten, ölmek istemekten ya da cinsel şantajdan bahsettiyse <strong>112</strong>'yi arayın. Beklemeyin.
-    </div>
-
-    <p style="text-align:center;margin-top:3mm;font-size:9pt;color:var(--navy);font-weight:700">
-      Birine "Yanındayım" demek<br/>çoğu zaman yeterlidir.
+    <h2>Dijital Şiddet Nedir?</h2>
+    <p>
+      Birini internette, telefonda ya da oyunda incitmek, korkutmak, aşağılamak — bunların hepsi <strong>dijital şiddettir</strong>.
+      "Şakaydı", "sildim geçti" demek bunu değiştirmez.
     </p>
+
+    <h3 style="color:var(--pink);margin-top:3mm">En Sık Karşılaşılan 6 Tür</h3>
+
+    <div class="vmini">
+      <div class="vrow"><div class="vi p">💬</div><div class="vt">
+        <div class="vh">Siber Zorbalık</div>
+        <div class="vd">Grupta veya özel mesajda aşağılamak, dalga geçmek, herkesin içinde rezil etmek.</div>
+      </div></div>
+      <div class="vrow"><div class="vi b">📍</div><div class="vt">
+        <div class="vh">Kişisel Bilgi Yayma (Doxxing)</div>
+        <div class="vd">Birisinin ev adresini, telefon numarasını ya da aile bilgilerini izinsiz internete dökmek. Suçtur.</div>
+      </div></div>
+      <div class="vrow"><div class="vi p">📸</div><div class="vt">
+        <div class="vh">Özel Görüntü Yayma</div>
+        <div class="vd">Birisinin özel fotoğraf ya da videosunu, o kişi istemeden başkasına göndermek. Bunu yapan herkes suçludur.</div>
+      </div></div>
+      <div class="vrow"><div class="vi">🧵</div><div class="vt">
+        <div class="vh">Foto/Video ile Şantaj</div>
+        <div class="vd">"Fotoğraf gönder yoksa yayarım" demek. Para ödeme, ekran görüntüsünü sakla, hemen bildir.</div>
+      </div></div>
+      <div class="vrow"><div class="vi t">🎭</div><div class="vt">
+        <div class="vh">Tanımadık Biriyle Yakınlaşma</div>
+        <div class="vd">Yaşını gizleyen bir yetişkin önce arkadaş gibi davranır, sonra uygunsuz şeyler ister. "Ailene söyleme" diyorsa hemen uzaklaş.</div>
+      </div></div>
+      <div class="vrow"><div class="vi b">❤️‍🩹</div><div class="vt">
+        <div class="vh">Dijital Flört Şiddeti</div>
+        <div class="vd">Sevgilinin şifreni istemesi, nerede olduğunu takip etmesi, kiminle konuşacağını dikte etmesi — bu sevgi değil, kontrol.</div>
+      </div></div>
+    </div>
+
+    <div class="note">
+      <strong>Bilgi:</strong> İnternette kimse gerçekten "anonim" değildir. Paylaşılan her şey iz bırakır.
+    </div>
   </div>
 
 </section>
