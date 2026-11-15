@@ -363,6 +363,7 @@ em{color:#ffe9b0;font-style:normal}
 .phone .num{font-size:22px;font-weight:800;letter-spacing:.5px;color:#fff;line-height:1}
 .phone .lbl{font-size:13px;color:var(--ink-dim);margin-top:3px}
 .phone.pri .p-ic{background:var(--grad-warm)}
+a.phone,a.phone:hover,a.phone:visited{color:inherit;text-decoration:none}
 
 /* ---------- QUIZ ---------- */
 details.q{
@@ -1220,42 +1221,36 @@ ol.refs li:target{border-color:rgba(255,209,102,.55);background:linear-gradient(
     </div>
 
     <div class="phones">
-      <div class="phone pri">
+      <a class="phone pri" href="tel:112">
         <div class="p-ic">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         </div>
         <div><div class="num">112</div><div class="lbl">Polis / Acil · Siber suç ihbarı dahil</div></div>
-      </div>
-      <div class="phone pri">
-        <div class="p-ic">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-        </div>
-        <div><div class="num">112</div><div class="lbl">Acil Çağrı Merkezi</div></div>
-      </div>
-      <div class="phone pri">
+      </a>
+      <a class="phone pri" href="tel:183">
         <div class="p-ic">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87"/><path d="M4 21v-2a4 4 0 0 1 3-3.87"/><circle cx="12" cy="7" r="4"/></svg>
         </div>
         <div><div class="num">183</div><div class="lbl">Aile · Kadın · Çocuk · Sosyal Hizmet Danışma</div></div>
-      </div>
-      <div class="phone">
+      </a>
+      <a class="phone" href="https://www.icisleri.gov.tr/kadin-destek-uygulamasi-kades" target="_blank" rel="noopener">
         <div class="p-ic">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
         </div>
-        <div><div class="num">KADES</div><div class="lbl">Kadın Destek Uygulaması (mobil)</div></div>
-      </div>
-      <div class="phone">
+        <div><div class="num">KADES</div><div class="lbl">Kadınlara yönelik acil yardım uygulaması</div></div>
+      </a>
+      <a class="phone" href="https://www.ihbarweb.org.tr/" target="_blank" rel="noopener">
         <div class="p-ic">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>
         </div>
-        <div><div class="num">ihbarweb.org.tr</div><div class="lbl">BTK / USOM — zararlı içerik ihbarı</div></div>
-      </div>
-      <div class="phone">
+        <div><div class="num">ihbarweb.org.tr</div><div class="lbl">Siber Güvenlik Başkanlığı · 5651 sayılı Kanun kapsamında zararlı içerik ihbarı</div></div>
+      </a>
+      <a class="phone" href="https://www.cimer.gov.tr/" target="_blank" rel="noopener">
         <div class="p-ic">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1020" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
         </div>
         <div><div class="num">cimer.gov.tr</div><div class="lbl">Cumhurbaşkanlığı İletişim Merkezi</div></div>
-      </div>
+      </a>
     </div>
 
     <div class="callout" style="margin-top:20px">
@@ -1610,7 +1605,7 @@ ol.refs li:target{border-color:rgba(255,209,102,.55);background:linear-gradient(
       <li id="k8"><strong>WHO — Preventing Violence Against Children, 2020.</strong> Çevrimiçi şiddet ve ruh sağlığı. <a href="https://www.who.int/publications/i/item/9789240004191" target="_blank" rel="noopener">who.int</a></li>
       <li id="k9"><strong>5237 sayılı Türk Ceza Kanunu.</strong> m.103 (çocuk istismarı), m.125 (hakaret), m.134 (özel hayat), m.135–136 (kişisel veri), m.216 (nefret), m.226 (müstehcenlik). <a href="https://www.mevzuat.gov.tr/mevzuatmetin/1.5.5237.pdf" target="_blank" rel="noopener">mevzuat.gov.tr · TCK</a></li>
       <li id="k10"><strong>5651 sayılı İnternet Kanunu</strong> + <strong>6284</strong> (Ailenin Korunması) + <strong>6698</strong> (KVKK). <a href="https://www.mevzuat.gov.tr/" target="_blank" rel="noopener">mevzuat.gov.tr</a></li>
-      <li id="k11"><strong>Resmi yardım:</strong> <a href="https://www.ihbarweb.org.tr/" target="_blank" rel="noopener">ihbarweb.org.tr</a> · <a href="https://www.guvenliweb.org.tr/" target="_blank" rel="noopener">guvenliweb.org.tr</a> · <a href="https://www.egm.gov.tr/siber" target="_blank" rel="noopener">egm.gov.tr/siber</a> · <a href="https://kades.icisleri.gov.tr/" target="_blank" rel="noopener">KADES</a> · ALO 183</li>
+      <li id="k11"><strong>Resmi yardım:</strong> <a href="https://www.ihbarweb.org.tr/" target="_blank" rel="noopener">ihbarweb.org.tr</a> · <a href="https://www.guvenliweb.org.tr/" target="_blank" rel="noopener">guvenliweb.org.tr</a> · <a href="https://www.egm.gov.tr/siber" target="_blank" rel="noopener">egm.gov.tr/siber</a> · <a href="https://www.icisleri.gov.tr/kadin-destek-uygulamasi-kades" target="_blank" rel="noopener">KADES</a> · ALO 183</li>
     </ol>
 
     <p class="muted" style="margin-top:16px;font-size:13px">

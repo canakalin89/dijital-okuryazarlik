@@ -10,7 +10,6 @@ anlatan tek dosyalık bilgilendirme sitesi.
 | --- | --- |
 | [`index.html`](index.html) | Tam rehber (11 bölüm, mobil uyumlu, sol sabit menü) |
 | [`brosur.html`](brosur.html) | Tek sayfa, iki yüzlü, üç katlı (tri-fold) A4 broşür |
-| [`Dijital-Okuryazarlik-Kilavuzu.pdf`](Dijital-Okuryazarlik-Kilavuzu.pdf) | Rehberin baskıya hazır PDF'i |
 | [`Dijital-Okuryazarlik-Brosur.pdf`](Dijital-Okuryazarlik-Brosur.pdf) | Broşürün baskıya hazır PDF'i |
 
 ## Yayın
@@ -24,7 +23,7 @@ TÜİK Çocuklarda BİT Kullanımı 2021 · TÜİK Hanehalkı BİT 2024 · UNICE
 EU Kids Online · DataReportal · RTÜK · WHO · TCK (m.103, 125, 134, 135-136,
 216, 226) · 5651 · 6284 · 6698 sayılı Kanunlar.
 
-Acil: **155 · 112 · 183 · KADES · ihbarweb.org.tr · siber.pol.tr**
+Acil: **112 · 183 · KADES · ihbarweb.org.tr · egm.gov.tr/siber**
 
 ---
 Okul sitesi: <https://azizsancaranadolu.meb.k12.tr/>
